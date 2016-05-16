@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_aqi"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20.0dip"
+        android:text="@string/activity_home_class_title_air_quality_index"
+        android:textColor="@color/home_text_color_dark"
+        android:textSize="14.0sp" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="20.0dip"
+            android:layout_weight="2.0">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
+
+                <suda.sudamodweather.widget.AqiView
+                    android:id="@+id/view_aqi"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_aqiQuality"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10.0dip"
+                    android:textColor="@color/home_text_color"
+                    android:textSize="12.0sp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20.0dip"
+            android:layout_weight="3.0"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="40.0dip">
+
+                <TextView
+                    style="@style/home_aqi_item_left_text_style"
+                    android:text="@string/activity_home_str_pm25" />
+
+                <TextView
+                    android:id="@+id/tv_pm25"
+                    style="@style/home_aqi_item_right_text_style" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0px"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="10.0dip"
+                    android:layout_marginRight="10.0dip"
+                    android:background="@color/home_inside_divider_color" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="40.0dip">
+
+                <TextView
+                    style="@style/home_aqi_item_left_text_style"
+                    android:text="@string/activity_home_str_pm10" />
+
+                <TextView
+                    android:id="@+id/tv_pm10"
+                    style="@style/home_aqi_item_right_text_style" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0px"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="10.0dip"
+                    android:layout_marginRight="10.0dip"
+                    android:background="@color/home_inside_divider_color" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="40.0dip">
+
+                <TextView
+                    style="@style/home_aqi_item_left_text_style"
+                    android:text="@string/activity_home_str_so2" />
+
+                <TextView
+                    android:id="@+id/tv_so2"
+                    style="@style/home_aqi_item_right_text_style" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0px"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="10.0dip"
+                    android:layout_marginRight="10.0dip"
+                    android:background="@color/home_inside_divider_color" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="40.0dip">
+
+                <TextView
+                    style="@style/home_aqi_item_left_text_style"
+                    android:text="@string/activity_home_str_no2" />
+
+                <TextView
+                    android:id="@+id/tv_no2"
+                    style="@style/home_aqi_item_right_text_style" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1.0px"
+        android:background="@color/home_item_divider_color" />
+</LinearLayout>

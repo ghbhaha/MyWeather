@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">天气</string>
+    <string name="open">打开</string>
+    <string name="close">关闭</string>
+    <string name="action_ok">确定</string>
+    <string name="activity_home_class_title_air_quality_index">空气质量指数</string>
+    <string name="activity_home_class_title_data_source">数据来源 中国天气网</string>
+    <string name="activity_home_class_title_hour_forecast">逐3小时预报</string>
+    <string name="activity_home_class_title_living_index">生活指数</string>
+    <string name="activity_home_class_title_precipitation_probability">降水概率</string>
+    <string name="activity_home_class_title_sun">日出和日落</string>
+    <string name="activity_home_class_title_wind_and_humidity">风和湿度</string>
+    <string name="activity_home_class_title_wind_speed_forecast">风速预报</string>
+    <string name="activity_home_drawer_list_item_add_city">添加城市</string>
+    <string name="activity_home_menu_action_weather_preview">动态背景预览</string>
+    <string name="activity_home_refresh_time">%1$s 刷新</string>
+    <string name="activity_home_str_humidity">湿度</string>
+    <string name="activity_home_str_no2">NO2[二氧化氮]</string>
+    <string name="activity_home_str_pm10">PM10[可吸入颗粒物]</string>
+    <string name="activity_home_str_pm25">PM2.5[细颗粒物]</string>
+    <string name="activity_home_str_so2">SO2[二氧化硫]</string>
+    <string name="activity_home_str_wind_direction">风向</string>
+    <string name="activity_home_str_wind_speed">风力</string>
+    <string name="activity_home_tip_bad_network">请检查网络设置</string>
+    <string name="activity_home_tip_locate_success">定位成功：%1$s</string>
+    <string name="activity_home_tip_locating">正在定位...</string>
+    <string name="activity_home_type_and_real_feel_temp">%1$s | 体感 %2$s°</string>
+    <string name="activity_home_yesterday_weather">昨日天气 %1$s %2$s° ~ %3$s°</string>
+    <string name="custom_sun_view_str_sunrise">日出 %1$s</string>
+    <string name="custom_sun_view_str_sunset">日落 %1$s</string>
+</resources>

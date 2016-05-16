@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_livingIndex"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20.0dip"
+        android:text="@string/activity_home_class_title_living_index"
+        android:textColor="@color/home_text_color_dark"
+        android:textSize="14.0sp" />
+
+    <suda.sudamodweather.widget.MyListView
+        android:id="@+id/lv_livingIndex"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10.0dip"
+        android:divider="@null"
+        android:listSelector="@color/transparent"
+        android:scrollbars="none" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1.0px"
+        android:background="@color/home_item_divider_color" />
+</LinearLayout>

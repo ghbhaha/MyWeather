@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <suda.sudamodweather.widget.weather.SkyView
+        android:id="@+id/myWeatherView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/content_main" />
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="270.0dip"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:layout_gravity="start"-->
+        <!--android:background="@color/white"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<RelativeLayout-->
+        <!--android:id="@+id/rl_drawerHeader"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="200.0dip">-->
+
+        <!--<ImageView-->
+        <!--android:id="@+id/iv_drawerHeaderImg"-->
+        <!--android:layout_width="270.0dip"-->
+        <!--android:layout_height="200.0dip"-->
+        <!--android:scaleType="centerCrop"-->
+        <!--android:src="@drawable/nav_night" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/tv_date"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginBottom="25.0dip"-->
+        <!--android:textColor="#bbffffff"-->
+        <!--android:textSize="13.0sp" />-->
+        <!--</RelativeLayout>-->
+
+        <!--<ListView-->
+        <!--android:id="@+id/lv_drawer_menu"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10.0dip"-->
+        <!--android:divider="@null"-->
+        <!--android:scrollbars="none" />-->
+        <!--</LinearLayout>-->
+    </android.support.v4.widget.DrawerLayout>
+
+
+</RelativeLayout>
