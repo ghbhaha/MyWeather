@@ -20,8 +20,9 @@ public class WindmillView extends View {
     private float windSpeedDegree = 2f;
 
     //圆心
-    private float centerX;
-    private float centerY;
+    private float centerX, centerY;
+    //构成最下面扇子的4个点
+    float x1, y1, x2, y2, x3, y3, x4, y4;
 
     public WindmillView(Context context) {
         super(context);
@@ -48,12 +49,9 @@ public class WindmillView extends View {
         } else {
             width = height;
         }
-
         width = width / 2;
 
-        centerX = width / 2;
-        centerY = height / 2 - getFitSize(50);
-
+        measure();
         setMeasuredDimension((int) width, (int) height);
     }
 
@@ -62,6 +60,19 @@ public class WindmillView extends View {
         paint.setColor(Color.WHITE);
         paint.setAntiAlias(true);
         paint.setStrokeWidth(4);
+    }
+
+    private void measure() {
+        x1 = width / 2 - getFitSize(20);
+        y1 = height / 2 - getFitSize(15);
+        x2 = width / 2;
+        y2 = height / 2 - getFitSize(50);
+        x3 = width / 2 + getFitSize(20);
+        y3 = y1;
+        x4 = x2;
+        y4 = height / 2 + getFitSize(400);
+        centerX = width / 2;
+        centerY = height / 2 - getFitSize(50);
     }
 
 
@@ -97,16 +108,6 @@ public class WindmillView extends View {
     private void drawFan(Canvas canvas) {
         final Path path = new Path();
         paint.setStyle(Paint.Style.FILL);
-
-        //构成最下面扇子的6个点
-        float x1 = width / 2 - getFitSize(20);
-        float y1 = height / 2 - getFitSize(15);
-        float x2 = width / 2;
-        float y2 = height / 2 - getFitSize(50);
-        float x3 = width / 2 + getFitSize(20);
-        float y3 = y1;
-        float x4 = x2;
-        float y4 = height / 2 + getFitSize(400);
 
         path.moveTo(x1, y1);
         path.cubicTo(x1, y1, x2, y2, x3, y3);
