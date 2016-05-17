@@ -49,6 +49,8 @@ public abstract class BaseAnimView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         drawSub(canvas);
+        //动画逻辑
+        animLogic();
         if (animThread == null) {
             animThread = new AnimThread();
             animThread.start();
@@ -103,11 +105,9 @@ public abstract class BaseAnimView extends View {
         @Override
         public void run() {
             while (true) {
-                //1.动画逻辑
-                animLogic();
-                //2.绘制图像
+                //1.绘制图像
                 postInvalidate();
-                //3.延迟，不然会造成执行太快动画一闪而过
+                //2.延迟，不然会造成执行太快动画一闪而过
                 try {
                     Thread.sleep(sleepTime());
                 } catch (InterruptedException e) {

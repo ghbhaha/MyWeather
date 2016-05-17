@@ -78,9 +78,9 @@ public class RainSnowHazeView extends BaseAnimView {
 
             paint.setAlpha(rainLine.getAlpha());
             if (type == Type.HAZE) {
-                RectF rect3 = new RectF(rainLine.getStartX() - getFitSize(5), rainLine.getStartY() - getFitSize(5),
+                RectF rect1 = new RectF(rainLine.getStartX() - getFitSize(5), rainLine.getStartY() - getFitSize(5),
                         rainLine.getStartX() + getFitSize(5), rainLine.getStartY() + getFitSize(5));
-                canvas.drawArc(rect3, 0, 360, false, paint);
+                canvas.drawArc(rect1, 0, 360, false, paint);
             } else if (type == Type.SNOW) {
                 RectF rect3 = new RectF(rainLine.getStartX() - getFitSize(5), rainLine.getStartY() - getFitSize(5),
                         rainLine.getStartX() + getFitSize(5), rainLine.getStartY() + getFitSize(5));
@@ -132,7 +132,7 @@ public class RainSnowHazeView extends BaseAnimView {
 
     @Override
     protected int sleepTime() {
-        return 5;
+        return 10;
     }
 
 }

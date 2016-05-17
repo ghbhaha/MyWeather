@@ -18,7 +18,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -31,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.drakeet.materialdialog.MaterialDialog;
 import suda.sudamodweather.R;
 import suda.sudamodweather.dao.CityDao;
 import suda.sudamodweather.dao.bean.City;
@@ -385,7 +389,46 @@ public class MainActivity extends AppCompatActivity implements BDLocationListene
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.weather_preview:
+                showPreview();
+                break;
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showPreview() {
+        final ArrayAdapter<String> arrayAdapter
+                = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1);
+        arrayAdapter.add("晴");
+        arrayAdapter.add("多云");
+        arrayAdapter.add("阴");
+        arrayAdapter.add("雾");
+        arrayAdapter.add("雨");
+        arrayAdapter.add("雨夹雪");
+        arrayAdapter.add("雪");
+        arrayAdapter.add("霾");
+
+        ListView listView = new ListView(this);
+        listView.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+        listView.setDividerHeight(1);
+        listView.setAdapter(arrayAdapter);
+
+        final MaterialDialog alert = new MaterialDialog(this).setContentView(listView);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mSkyView.setWeather(parent.getAdapter().getItem(position).toString());
+                alert.dismiss();
+            }
+        });
+        alert.setCanceledOnTouchOutside(true);
+        alert.show();
     }
 
 }

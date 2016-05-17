@@ -18,7 +18,7 @@ public class RainOrSnowLine extends BaseLine {
 
     @Override
     public void resetRandom() {
-        startY = 0;
+        startY = startY - maxY;
         stopY = startY + deltaY;
     }
 

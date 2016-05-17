@@ -11,11 +11,12 @@ public class HazeLine extends BaseLine {
 
     @Override
     protected void resetRandom() {
-        startX = 0;
+        startX = startX - maxX;
     }
 
     @Override
     protected void initRandom() {
+        deltaX = 2;
         startX = random.nextInt(maxX);
         startY = random.nextInt(maxY);
         stopX = startX + deltaX;

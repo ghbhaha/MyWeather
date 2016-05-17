@@ -15,8 +15,8 @@ public abstract class BaseLine {
     protected int stopX;
     protected int stopY;
 
-    protected int deltaX = 2;
-    protected int deltaY = 4;
+    protected int deltaX = 6;
+    protected int deltaY = 10;
 
     protected int maxX; //x最大范围
     protected int maxY; //y最大范围
