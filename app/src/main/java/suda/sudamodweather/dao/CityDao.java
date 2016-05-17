@@ -44,7 +44,7 @@ public class CityDao {
         Cursor cursor = db.rawQuery("select * from citys where weatherId ='" + weather_id + "'", null);
         City city = new City();
         if (cursor.moveToNext()) {
-            city.setAreaName(cursor.getString(cursor.getColumnIndex("cityName")));
+            city.setAreaName(cursor.getString(cursor.getColumnIndex("areaName")));
             city.setProvinceName(cursor.getString(cursor.getColumnIndex("provinceName")));
             city.setCityName(cursor.getString(cursor.getColumnIndex("cityName")));
             city.setWeatherId(cursor.getString(cursor.getColumnIndex("weatherId")));

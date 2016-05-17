@@ -144,14 +144,14 @@ public class WeatherManager extends BaseManager {
                     Aqi aqido = new Aqi();
                     aqido.setAreaid(areaID);
                     JSONObject aqiObj = weather2345.getJSONObject("aqi");
-                    if (aqiObj == null) {
+                    if (aqiObj == null || (aqiObj != null && TextUtils.isEmpty(aqiObj.getString("PM25")))) {
                         aqiObj = weatherflyme.getJSONObject("pm25");
-                        aqido.setAqi(aqiObj.getInteger("AQI"));
-                        aqido.setSo2(aqiObj.getInteger("SO2"));
-                        aqido.setNo2(aqiObj.getInteger("NO2"));
-                        aqido.setPm2_5(aqiObj.getInteger("PM25"));
-                        aqido.setPm10(aqiObj.getInteger("PM10"));
-                        aqido.setQuality(aqiObj.getString("aqiLevelString"));
+                        aqido.setAqi(aqiObj.getInteger("aqi"));
+                        aqido.setSo2(aqiObj.getInteger("so2"));
+                        aqido.setNo2(aqiObj.getInteger("no2"));
+                        aqido.setPm2_5(aqiObj.getInteger("pm25"));
+                        aqido.setPm10(aqiObj.getInteger("pm10"));
+                        aqido.setQuality(aqiObj.getString("quality"));
                     } else {
                         aqido.setAqi(aqiObj.getInteger("AQI"));
                         aqido.setSo2(aqiObj.getInteger("SO2"));
