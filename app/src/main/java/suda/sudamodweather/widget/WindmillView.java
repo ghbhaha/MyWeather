@@ -13,12 +13,15 @@ import android.view.View;
  */
 public class WindmillView extends View {
 
-    Paint paint = new Paint();
-    float radius;
+    private Paint paint;
     private Thread animThread;
     private float height, width;
     private float degree = 0;
     private float windSpeedDegree = 2f;
+
+    //圆心
+    private float centerX;
+    private float centerY;
 
     public WindmillView(Context context) {
         super(context);
@@ -47,11 +50,15 @@ public class WindmillView extends View {
         }
 
         width = width / 2;
+
+        centerX = width / 2;
+        centerY = height / 2 - getFitSize(50);
+
         setMeasuredDimension((int) width, (int) height);
-        radius = getFitSize(45);
     }
 
     private void init() {
+        paint = new Paint();
         paint.setColor(Color.WHITE);
         paint.setAntiAlias(true);
         paint.setStrokeWidth(4);
@@ -61,40 +68,59 @@ public class WindmillView extends View {
     @Override
     protected void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
-        //绘制支架
-        Path path = new Path();
-        paint.setStyle(Paint.Style.STROKE);
-        path.moveTo(getFitSize(180), height);
-        path.lineTo(width / 2, height / 2 - getFitSize(45));
-        path.lineTo(width - getFitSize(180), height);
-        canvas.drawPath(path, paint);
 
-        //绘制风车最下面的叶子
-        final Path path1 = new Path();
-        paint.setStyle(Paint.Style.FILL);
+        drawHolder(canvas);
+        drawFan(canvas);
 
-
-        path1.moveTo(width / 2 - getFitSize(radius), height / 2 - getFitSize(15));
-        path1.cubicTo(width / 2 - getFitSize(radius), height / 2 - getFitSize(15),
-                width / 2, height / 2 - getFitSize(40), width / 2 + getFitSize(radius), height / 2 - getFitSize(15));
-
-        path1.cubicTo(width / 2 + getFitSize(radius), height / 2 - getFitSize(15),
-                width / 2, height / 2 + getFitSize(400), width / 2 - getFitSize(radius), height / 2 - getFitSize(10));
-
-        path1.close();
-
-        canvas.rotate(degree, width / 2, height / 2 - radius);
-        canvas.drawPath(path1, paint);
-
-        //绘制剩余叶子
-        canvas.rotate(120, width / 2, height / 2 - radius);
-        canvas.drawPath(path1, paint);
-        canvas.rotate(120, width / 2, height / 2 - radius);
-        canvas.drawPath(path1, paint);
         degree += windSpeedDegree * 1.5f;
         if (degree >= 360)
             degree = degree - 360;
     }
+
+    /**
+     * 绘制支架
+     *
+     * @param canvas
+     */
+    private void drawHolder(Canvas canvas) {
+        Path path = new Path();
+        paint.setStyle(Paint.Style.STROKE);
+        path.moveTo(getFitSize(180), height);
+        path.lineTo(centerX, centerY);
+        path.lineTo(width - getFitSize(180), height);
+        canvas.drawPath(path, paint);
+    }
+
+    /**
+     * 绘制风车扇子
+     */
+    private void drawFan(Canvas canvas) {
+        final Path path = new Path();
+        paint.setStyle(Paint.Style.FILL);
+
+        //构成最下面扇子的6个点
+        float x1 = width / 2 - getFitSize(20);
+        float y1 = height / 2 - getFitSize(15);
+        float x2 = width / 2;
+        float y2 = height / 2 - getFitSize(50);
+        float x3 = width / 2 + getFitSize(20);
+        float y3 = y1;
+        float x4 = x2;
+        float y4 = height / 2 + getFitSize(400);
+
+        path.moveTo(x1, y1);
+        path.cubicTo(x1, y1, x2, y2, x3, y3);
+        path.cubicTo(x3, y3, x4, y4, x1, y1);
+        path.close();
+
+        canvas.rotate(degree, centerX, centerY);
+        canvas.drawPath(path, paint);
+        canvas.rotate(120, centerX, centerY);
+        canvas.drawPath(path, paint);
+        canvas.rotate(120, centerX, centerY);
+        canvas.drawPath(path, paint);
+    }
+
 
     public void startAnim() {
         if (animThread == null) {
@@ -102,7 +128,7 @@ public class WindmillView extends View {
                 @Override
                 public void run() {
                     while (true) {
-                        postInvalidate();
+                        refreshView();
                         try {
                             Thread.sleep(10);
                         } catch (InterruptedException e) {
