@@ -16,7 +16,7 @@ public class HazeLine extends BaseLine {
 
     @Override
     protected void initRandom() {
-        deltaX = 2;
+        deltaX = 1 + random.nextInt(5);
         startX = random.nextInt(maxX);
         startY = random.nextInt(maxY);
         stopX = startX + deltaX;

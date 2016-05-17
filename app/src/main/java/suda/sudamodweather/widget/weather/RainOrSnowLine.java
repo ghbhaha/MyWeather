@@ -11,15 +11,16 @@ public class RainOrSnowLine extends BaseLine {
 
     @Override
     public void initRandom() {
+        deltaY = 20;
         stopX = startX = random.nextInt(maxX);
         startY = random.nextInt(maxY);
-        stopY = startY + deltaY;
+        stopY = startY + 20;
     }
 
     @Override
     public void resetRandom() {
         startY = startY - maxY;
-        stopY = startY + deltaY;
+        stopY = startY + 20;
     }
 
     @Override

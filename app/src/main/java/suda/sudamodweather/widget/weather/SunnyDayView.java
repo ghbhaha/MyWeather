@@ -5,8 +5,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.view.SurfaceHolder;
 
-import suda.sudamodweather.widget.BaseAnimView;
 
 /**
  * Created by ghbha on 2016/5/16.
@@ -28,8 +28,8 @@ public class SunnyDayView extends BaseAnimView {
     private int deltaRadius = 1;
 
 
-    public SunnyDayView(Context context) {
-        super(context);
+    public SunnyDayView(Context context, int backColor) {
+        super(context, backColor);
     }
 
     @Override
@@ -43,6 +43,14 @@ public class SunnyDayView extends BaseAnimView {
 
     @Override
     protected void drawSub(Canvas canvas) {
+        if (radius > MAX) {
+            deltaRadius = -deltaRadius;
+        }
+        if (radius < MIN) {
+            deltaRadius = -deltaRadius;
+        }
+
+
         RectF rect1 = new RectF(-radius, -radius, radius, radius);
         RectF rect2 = new RectF(-(radius + addRadius), -(radius + addRadius), (radius + addRadius), (radius + addRadius));
         RectF rect3 = new RectF(-(radius + 2 * addRadius), -(radius + 2 * addRadius), (radius + 2 * addRadius), (radius + 2 * addRadius));
@@ -61,23 +69,28 @@ public class SunnyDayView extends BaseAnimView {
     }
 
     @Override
-    protected boolean needStopAnimThread() {
-        if (radius > MAX) {
-            deltaRadius = -deltaRadius;
-        }
-        if (radius < MIN) {
-            deltaRadius = -deltaRadius;
-        }
-
-        return false;
-    }
-
-    @Override
-    protected void onAnimEnd() {
-    }
-
-    @Override
     protected int sleepTime() {
         return 50;
+    }
+
+
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        startAnim();
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+
+    }
+
+    @Override
+    public void run() {
+        doLogic();
     }
 }

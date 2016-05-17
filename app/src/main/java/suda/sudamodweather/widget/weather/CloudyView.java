@@ -5,8 +5,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.view.SurfaceHolder;
 
-import suda.sudamodweather.widget.BaseAnimView;
 
 /**
  * Created by ghbha on 2016/5/16.
@@ -27,8 +27,8 @@ public class CloudyView extends BaseAnimView {
     private int deltaRadius = 1;
 
 
-    public CloudyView(Context context) {
-        super(context);
+    public CloudyView(Context context, int backColor) {
+        super(context, backColor);
     }
 
     @Override
@@ -38,12 +38,18 @@ public class CloudyView extends BaseAnimView {
         paint.setStrokeWidth(getFitSize(3));
         paint.setAntiAlias(true);
         paint.setColor(Color.WHITE);
-
         paint.setAlpha(70);
     }
 
     @Override
     protected void drawSub(Canvas canvas) {
+        if (radius > MAX) {
+            deltaRadius = -deltaRadius;
+        }
+        if (radius < MIN) {
+            deltaRadius = -deltaRadius;
+        }
+
         RectF rect1 = new RectF(-radius, -radius, radius, radius);
         RectF rect2 = new RectF((windowWidth / 2 - radius), -radius, (windowWidth / 2 + radius), radius);
         RectF rect3 = new RectF(windowWidth - radius, -radius, windowWidth + radius, radius);
@@ -58,23 +64,29 @@ public class CloudyView extends BaseAnimView {
         radius += deltaRadius;
     }
 
-    @Override
-    protected boolean needStopAnimThread() {
-        if (radius > MAX) {
-            deltaRadius = -deltaRadius;
-        }
-        if (radius < MIN) {
-            deltaRadius = -deltaRadius;
-        }
-        return false;
-    }
-
-    @Override
-    protected void onAnimEnd() {
-    }
 
     @Override
     protected int sleepTime() {
         return 50;
+    }
+
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        startAnim();
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+
+    }
+
+    @Override
+    public void run() {
+        doLogic();
     }
 }

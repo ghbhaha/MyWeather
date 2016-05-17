@@ -5,11 +5,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.util.AttributeSet;
+import android.view.SurfaceHolder;
 
 import java.util.ArrayList;
 
-import suda.sudamodweather.widget.BaseAnimView;
 
 /**
  * Created by ghbha on 2016/5/16.
@@ -17,19 +16,15 @@ import suda.sudamodweather.widget.BaseAnimView;
 public class RainSnowHazeView extends BaseAnimView {
 
 
-    private static final int RAIN_COUNT = 100; //雨点个数
+    private static final int RAIN_COUNT = 60; //雨点个数
     private ArrayList<BaseLine> rainLines;
     private Paint paint;
     private Type type = Type.RAIN;
 
-    public RainSnowHazeView(Context context, Type type) {
-        super(context);
+    public RainSnowHazeView(Context context, Type type, int backColor) {
+        super(context, backColor);
         this.type = type;
         init2();
-    }
-
-    public RainSnowHazeView(Context context, AttributeSet attrs) {
-        super(context, attrs);
     }
 
     /**
@@ -109,30 +104,33 @@ public class RainSnowHazeView extends BaseAnimView {
         }
     }
 
-    /**
-     * 里面根据当前状态判断是否需要返回停止动画
-     *
-     * @return 是否需要停止动画thread
-     */
     @Override
-    protected boolean needStopAnimThread() {
-        return false;
+    public void surfaceCreated(SurfaceHolder holder) {
+        startAnim();
     }
 
-    /**
-     * 动画结束后做的操作，比如回收资源
-     */
     @Override
-    protected void onAnimEnd() {
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
     }
 
-    public enum Type {
-        RAIN, SNOW, RAIN_SNOW, HAZE;
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+
+    }
+
+    @Override
+    public void run() {
+        doLogic();
     }
 
     @Override
     protected int sleepTime() {
-        return 10;
+        return 3;
+    }
+
+    public enum Type {
+        RAIN, SNOW, RAIN_SNOW, HAZE;
     }
 
 }

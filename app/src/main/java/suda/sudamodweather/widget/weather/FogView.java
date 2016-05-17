@@ -5,8 +5,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.view.SurfaceHolder;
 
-import suda.sudamodweather.widget.BaseAnimView;
 
 /**
  * Created by ghbha on 2016/5/16.
@@ -24,8 +24,8 @@ public class FogView extends BaseAnimView {
     private float radius = MIN;
     private int deltaRadius = 1;
 
-    public FogView(Context context) {
-        super(context);
+    public FogView(Context context, int backColor) {
+        super(context, backColor);
     }
 
     @Override
@@ -41,6 +41,13 @@ public class FogView extends BaseAnimView {
 
     @Override
     protected void drawSub(Canvas canvas) {
+        if (radius > MAX) {
+            deltaRadius = -deltaRadius;
+        }
+        if (radius < MIN) {
+            deltaRadius = -deltaRadius;
+        }
+
         RectF rect1 = new RectF(-radius, -radius, radius, radius);
         RectF rect2 = new RectF(windowWidth - radius, windowHeight - radius, windowWidth + radius, windowHeight + radius);
 
@@ -53,25 +60,30 @@ public class FogView extends BaseAnimView {
         radius += deltaRadius;
     }
 
-    @Override
-    protected boolean needStopAnimThread() {
-        if (radius > MAX) {
-            deltaRadius = -deltaRadius;
-        }
-        if (radius < MIN) {
-            deltaRadius = -deltaRadius;
-        }
-
-        return false;
-    }
-
-    @Override
-    protected void onAnimEnd() {
-
-    }
 
     @Override
     protected int sleepTime() {
         return 50;
+    }
+
+
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        startAnim();
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+
+    }
+
+    @Override
+    public void run() {
+        doLogic();
     }
 }
