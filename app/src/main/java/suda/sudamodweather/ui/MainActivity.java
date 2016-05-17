@@ -15,6 +15,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ListView;
@@ -187,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements BDLocationListene
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawLayout);
 
-        //setDrawerLayout();
+        setDrawerLayout();
         setRealWeather();
         setForeCast();
         setWind();
@@ -305,12 +307,6 @@ public class MainActivity extends AppCompatActivity implements BDLocationListene
         mNo2Tv = (TextView) findViewById(R.id.tv_no2);
 
         mAqi = (AqiView) findViewById(R.id.view_aqi);
-//        mAqi.setProgressAndLabel(40, "空气良");
-//
-//        mPm2_5Tv.setText(34 + " μg/m³");
-//        mPm10Tv.setText(54 + " μg/m³");
-//        mSo2Tv.setText(25 + " μg/m³");
-//        mNo2Tv.setText(44 + " μg/m³");
     }
 
     /**
@@ -366,7 +362,7 @@ public class MainActivity extends AppCompatActivity implements BDLocationListene
         mDrawerLayout.addDrawerListener(mDrawerToggle);
 
         //初始化菜单
-        //mLvOptItems = (ListView) findViewById(R.id.lv_drawer_menu);
+        mLvOptItems = (ListView) findViewById(R.id.lv_drawer_menu);
 
         List<OptDO> optDOs = new ArrayList<>();
 
@@ -381,14 +377,15 @@ public class MainActivity extends AppCompatActivity implements BDLocationListene
 
     }
 
-    //    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
 }

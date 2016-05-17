@@ -1,4 +1,4 @@
-package suda.sudamodweather.widget.weather;
+package suda.sudamodweather.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -8,9 +8,10 @@ import android.util.Log;
 import android.view.View;
 
 /**
+ * 动画View基类
  * Created by AZZ on 15/10/20 21:20.
  */
-public abstract class BaseView extends View {
+public abstract class BaseAnimView extends View {
 
     protected AnimThread animThread;
     protected int windowWidth; //屏幕宽
@@ -18,12 +19,12 @@ public abstract class BaseView extends View {
     protected int sleepTime = 30;
     private OnAnimEndListener mOnAnimEndListener;
 
-    public BaseView(Context context) {
+    public BaseAnimView(Context context) {
         super(context);
         init();
     }
 
-    public BaseView(Context context, AttributeSet attrs) {
+    public BaseAnimView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
@@ -115,7 +116,6 @@ public abstract class BaseView extends View {
                 //关闭线程逻辑判断
                 if (needStopAnimThread()) {
                     Log.i("BaseView", "   -线程停止！");
-
                     if (mOnAnimEndListener != null) {
                         mOnAnimEndListener.onAnimEnd();
                     }

@@ -6,11 +6,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
+import suda.sudamodweather.widget.BaseAnimView;
+
 /**
  * Created by ghbha on 2016/5/16.
  */
-public class FogView extends BaseView {
-
+public class FogView extends BaseAnimView {
 
     Paint paint;
 
@@ -21,9 +22,7 @@ public class FogView extends BaseView {
 
     //圆半径
     private float radius = MIN;
-
     private int deltaRadius = 1;
-
 
     public FogView(Context context) {
         super(context);
@@ -37,7 +36,6 @@ public class FogView extends BaseView {
         paint.setAntiAlias(true);
         paint.setColor(Color.WHITE);
 
-        sleepTime = 50;
         paint.setAlpha(70);
     }
 
@@ -70,5 +68,10 @@ public class FogView extends BaseView {
     @Override
     protected void onAnimEnd() {
 
+    }
+
+    @Override
+    protected int sleepTime() {
+        return 50;
     }
 }

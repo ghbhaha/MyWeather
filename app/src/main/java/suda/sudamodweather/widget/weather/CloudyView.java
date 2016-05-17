@@ -6,10 +6,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
+import suda.sudamodweather.widget.BaseAnimView;
+
 /**
  * Created by ghbha on 2016/5/16.
  */
-public class CloudyView extends BaseView {
+public class CloudyView extends BaseAnimView {
 
 
     Paint paint;
@@ -37,8 +39,6 @@ public class CloudyView extends BaseView {
         paint.setAntiAlias(true);
         paint.setColor(Color.WHITE);
 
-
-        sleepTime = 50;
         paint.setAlpha(70);
     }
 
@@ -66,12 +66,15 @@ public class CloudyView extends BaseView {
         if (radius < MIN) {
             deltaRadius = -deltaRadius;
         }
-
         return false;
     }
 
     @Override
     protected void onAnimEnd() {
+    }
 
+    @Override
+    protected int sleepTime() {
+        return 50;
     }
 }

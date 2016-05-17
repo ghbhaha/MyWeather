@@ -17,8 +17,8 @@ public class WindmillView extends View {
     float radius;
     private Thread animThread;
     private float height, width;
-    private int degree = 0;
-    private float windSpeedDegree = 2.0f;
+    private float degree = 0;
+    private float windSpeedDegree = 2f;
 
     public WindmillView(Context context) {
         super(context);
@@ -91,9 +91,9 @@ public class WindmillView extends View {
         canvas.drawPath(path1, paint);
         canvas.rotate(120, width / 2, height / 2 - radius);
         canvas.drawPath(path1, paint);
-        degree += windSpeedDegree;
+        degree += windSpeedDegree * 1.5f;
         if (degree >= 360)
-            degree = 0;
+            degree = degree - 360;
     }
 
     public void startAnim() {

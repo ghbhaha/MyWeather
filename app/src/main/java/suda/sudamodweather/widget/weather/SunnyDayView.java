@@ -6,10 +6,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
+import suda.sudamodweather.widget.BaseAnimView;
+
 /**
  * Created by ghbha on 2016/5/16.
  */
-public class SunnyDayView extends BaseView {
+public class SunnyDayView extends BaseAnimView {
 
     Paint paint;
 
@@ -37,7 +39,6 @@ public class SunnyDayView extends BaseView {
         paint.setStrokeWidth(3);
         paint.setAntiAlias(true);
         paint.setColor(Color.WHITE);
-        sleepTime = 50;
     }
 
     @Override
@@ -73,6 +74,10 @@ public class SunnyDayView extends BaseView {
 
     @Override
     protected void onAnimEnd() {
+    }
 
+    @Override
+    protected int sleepTime() {
+        return 50;
     }
 }

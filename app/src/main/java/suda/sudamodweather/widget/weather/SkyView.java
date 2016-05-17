@@ -7,6 +7,7 @@ import android.widget.FrameLayout;
 
 import suda.sudamodweather.R;
 import suda.sudamodweather.util.DateTimeUtil;
+import suda.sudamodweather.widget.BaseAnimView;
 
 /**
  * Created by ghbha on 2016/5/15.
@@ -17,7 +18,7 @@ public class SkyView extends FrameLayout {
     private String weather;
     private String sunrise, sunset;
     private Context context;
-    private BaseView baseView;
+    private BaseAnimView baseView;
     private int backGroundColor = R.color.clear_sky_day_start;
 
 

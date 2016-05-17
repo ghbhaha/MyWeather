@@ -8,13 +8,15 @@ import android.graphics.RectF;
 
 import java.util.ArrayList;
 
+import suda.sudamodweather.widget.BaseAnimView;
+
 /**
  * Created by ghbha on 2016/5/16.
  */
-public class SunnyNightView extends BaseView {
+public class SunnyNightView extends BaseAnimView {
 
     private static final int STAR_COUNT = 150; //星星数
-    Paint paint;
+    private Paint paint;
     private ArrayList<Star> stars;
 
     public SunnyNightView(Context context) {
@@ -26,9 +28,7 @@ public class SunnyNightView extends BaseView {
         super.init();
         paint = new Paint();
         paint.setStrokeWidth(getFitSize(3));
-        //paint.setAntiAlias(true);
         paint.setColor(Color.WHITE);
-        sleepTime = 30;
 
         stars = new ArrayList<>();
         for (int i = 0; i < STAR_COUNT; i++) {
@@ -42,7 +42,6 @@ public class SunnyNightView extends BaseView {
 
         for (Star star : stars) {
             paint.setAlpha(star.getCurrentAlpha());
-            // Log.d("ssssss", "sssss" + star.getCurrentAlpha());
             Float fitRadius = getFitSize(star.getRadius());
             RectF rect = new RectF(star.getX() - fitRadius, star.getY() - fitRadius,
                     star.getX() + fitRadius, star.getY() + fitRadius);
@@ -66,13 +65,15 @@ public class SunnyNightView extends BaseView {
 
     @Override
     protected boolean needStopAnimThread() {
-
-
         return false;
     }
 
     @Override
     protected void onAnimEnd() {
+    }
 
+    @Override
+    protected int sleepTime() {
+        return 30;
     }
 }

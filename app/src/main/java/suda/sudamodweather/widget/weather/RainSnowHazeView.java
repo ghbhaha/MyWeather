@@ -9,10 +9,12 @@ import android.util.AttributeSet;
 
 import java.util.ArrayList;
 
+import suda.sudamodweather.widget.BaseAnimView;
+
 /**
  * Created by ghbha on 2016/5/16.
  */
-public class RainSnowHazeView extends BaseView {
+public class RainSnowHazeView extends BaseAnimView {
 
 
     private static final int RAIN_COUNT = 100; //雨点个数
@@ -40,7 +42,6 @@ public class RainSnowHazeView extends BaseView {
             case RAIN_SNOW:
             case SNOW:
             case RAIN:
-                sleepTime = 5;
                 for (int i = 0; i < RAIN_COUNT; i++) {
                     rainLines.add(new RainOrSnowLine(windowWidth, windowHeight));
                 }
@@ -127,6 +128,11 @@ public class RainSnowHazeView extends BaseView {
 
     public enum Type {
         RAIN, SNOW, RAIN_SNOW, HAZE;
+    }
+
+    @Override
+    protected int sleepTime() {
+        return 5;
     }
 
 }

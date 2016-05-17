@@ -61,7 +61,7 @@ public class WindForecastView extends View {
             return;
 
         float paddingLeft = 0;
-        float widthavg = (width - leftRight) / foreCasts.size();
+        float widthAvg = (width - leftRight) / foreCasts.size();
         paint.setTextAlign(Paint.Align.CENTER);
 
         paint.setColor(Color.WHITE);
@@ -71,7 +71,7 @@ public class WindForecastView extends View {
 
         int i = 1;
         for (WeekForeCast weekForeCast : foreCasts) {
-            paddingLeft = leftRight / 2 + (i - 1 + 0.5f) * widthavg;
+            paddingLeft = leftRight / 2 + (i - 1 + 0.5f) * widthAvg;
             canvas.drawText(weekForeCast.getFj(), paddingLeft, height - getFitSize(height / 2), paint);
             i++;
         }

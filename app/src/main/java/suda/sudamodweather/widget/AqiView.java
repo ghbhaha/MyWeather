@@ -51,7 +51,7 @@ public class AqiView extends View {
         paint.setAlpha(100);
         canvas.drawArc(rect, 180, 180, false, paint);
         paint.setAlpha(255);
-        canvas.drawArc(rect, 180, (180 * progress / 100), false, paint);
+        canvas.drawArc(rect, 180, (180 * progress * 1.0f / 500), false, paint);
         paint.setStrokeWidth((float) 1.0);
         paint.setTextSize(getFitSize(120));
         paint.setStyle(Paint.Style.FILL);

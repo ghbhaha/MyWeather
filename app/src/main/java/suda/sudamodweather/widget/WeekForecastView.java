@@ -9,6 +9,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -89,7 +90,7 @@ public class WeekForecastView extends View {
 
         paint.setTextAlign(Paint.Align.CENTER);
         //获取每个天气所占空间
-        float widthavg = (width - leftRight) / foreCasts.size();
+        float widthAvg = (width - leftRight) / foreCasts.size();
 
         float paddingLeft = 0;
 
@@ -111,7 +112,7 @@ public class WeekForecastView extends View {
 
         for (WeekForeCast foreCast : foreCasts) {
 
-            paddingLeft = leftRight / 2 + (i - 1 + 0.5f) * widthavg;
+            paddingLeft = leftRight / 2 + (i - 1 + 0.5f) * widthAvg;
             //  Log.d(TAG, "padding" + paddingLeft + "");
 
             if (i == 1) {
