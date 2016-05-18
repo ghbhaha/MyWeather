@@ -2,7 +2,9 @@ package suda.sudamodweather.widget.weather;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -17,12 +19,12 @@ public abstract class BaseAnimView extends SurfaceView implements SurfaceHolder.
     protected int sleepTime = 30;
     protected SurfaceHolder holder;
 
-    public BaseAnimView(Context context, int backColor) {
+    public BaseAnimView(Context context) {
         super(context);
         holder = getHolder();
         holder.addCallback(this);
-        holder.setFormat(PixelFormat.RGBA_8888); // 顶层绘制SurfaceView设成透明
-        this.backColor = backColor;
+        setZOrderOnTop(true);
+        holder.setFormat(PixelFormat.TRANSLUCENT); // 顶层绘制SurfaceView设成透明
         init();
     }
 
@@ -72,7 +74,7 @@ public abstract class BaseAnimView extends SurfaceView implements SurfaceHolder.
             synchronized (this) {
                 canvas = holder.lockCanvas();
                 if (canvas != null) {
-                    canvas.drawColor(backColor);
+                    canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                     drawSub(canvas);
                     animLogic();
                     holder.unlockCanvasAndPost(canvas);

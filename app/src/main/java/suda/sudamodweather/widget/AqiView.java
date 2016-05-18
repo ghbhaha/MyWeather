@@ -42,16 +42,22 @@ public class AqiView extends View {
         super.onDraw(canvas);
         paint.setAntiAlias(true);                       //设置画笔为无锯齿
         paint.setColor(Color.WHITE);                    //设置画笔颜色
-        paint.setStrokeWidth((float) getFitSize(60));              //线宽
+        paint.setStrokeWidth(getFitSize(60));              //线宽
         paint.setStyle(Paint.Style.STROKE);
+
+        //外围虚线
         float center = width / 2;
         float radius = height - getFitSize(100);
         RectF rect = new RectF(center - radius + getFitSize(40), center - radius, center
                 + radius - getFitSize(40), center + radius - getFitSize(40));
         paint.setAlpha(100);
         canvas.drawArc(rect, 180, 180, false, paint);
+
+        //进度实线
         paint.setAlpha(255);
         canvas.drawArc(rect, 180, (180 * progress * 1.0f / 500), false, paint);
+
+        //文字描述
         paint.setStrokeWidth((float) 1.0);
         paint.setTextSize(getFitSize(120));
         paint.setStyle(Paint.Style.FILL);

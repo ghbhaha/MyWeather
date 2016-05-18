@@ -24,8 +24,8 @@ public class FogView extends BaseAnimView {
     private float radius = MIN;
     private int deltaRadius = 1;
 
-    public FogView(Context context, int backColor) {
-        super(context, backColor);
+    public FogView(Context context) {
+        super(context);
     }
 
     @Override

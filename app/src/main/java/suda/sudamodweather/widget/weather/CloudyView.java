@@ -27,8 +27,8 @@ public class CloudyView extends BaseAnimView {
     private int deltaRadius = 1;
 
 
-    public CloudyView(Context context, int backColor) {
-        super(context, backColor);
+    public CloudyView(Context context) {
+        super(context);
     }
 
     @Override

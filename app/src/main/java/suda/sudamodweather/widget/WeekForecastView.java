@@ -81,6 +81,8 @@ public class WeekForecastView extends View {
         paint.setColor(Color.WHITE);
         paint.setAntiAlias(true);
         paint.setStrokeWidth(0);
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setTextSize(getFitSize(35));
 
         drawWeatherDetail(canvas);
 
@@ -88,53 +90,47 @@ public class WeekForecastView extends View {
 
     private void drawWeatherDetail(Canvas canvas) {
 
-        paint.setTextAlign(Paint.Align.CENTER);
-        //获取每个天气所占空间
-        float widthAvg = (width - leftRight) / foreCasts.size();
-
-        float paddingLeft = 0;
-
         float weekPaddingBottom = getFitSize(200);
         float weekInfoPaddingBottom = getFitSize(40);
         float linePaddingBottom = getFitSize(330);
-        float lineHigh = getFitSize(320);
         float tempPaddingTop = getFitSize(20);
         float tempPaddingBottom = getFitSize(45);
 
+        //获取每个天气所占空间
+        float lineHigh = getFitSize(320);
+        float widthAvg = (width - leftRight) / foreCasts.size();
+        float heightAvg = lineHigh / maxMinDelta;
+
         Matrix matrix = new Matrix();
         matrix.postScale(0.45f, 0.45f); //长和宽放大缩小的比例
-        paint.setTextSize(getFitSize(35));
-        int i = 1;
+
         Path pathTempHigh = new Path();
         Path pathTempLow = new Path();
 
-        float lineAvg = lineHigh / maxMinDelta;
-
+        float paddingLeft = 0;
+        int i = 1;
         for (WeekForeCast foreCast : foreCasts) {
-
             paddingLeft = leftRight / 2 + (i - 1 + 0.5f) * widthAvg;
-            //  Log.d(TAG, "padding" + paddingLeft + "");
 
             if (i == 1) {
-                pathTempHigh.moveTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTempH() - tempL) * lineAvg));
-                pathTempLow.moveTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTempL() - tempL) * lineAvg));
+                pathTempHigh.moveTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTempH() - tempL) * heightAvg));
+                pathTempLow.moveTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTempL() - tempL) * heightAvg));
             } else {
-                pathTempHigh.lineTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTempH() - tempL) * lineAvg));
-                pathTempLow.lineTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTempL() - tempL) * lineAvg));
+                pathTempHigh.lineTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTempH() - tempL) * heightAvg));
+                pathTempLow.lineTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTempL() - tempL) * heightAvg));
             }
 
             paint.setStyle(Paint.Style.FILL);
             paint.setStrokeWidth(getFitSize(2));
-            canvas.drawCircle(paddingLeft, height - (linePaddingBottom + (foreCast.getTempH() - tempL) * lineAvg), radius, paint);
-            canvas.drawCircle(paddingLeft, height - (linePaddingBottom + (foreCast.getTempL() - tempL) * lineAvg), radius, paint);
+            canvas.drawCircle(paddingLeft, height - (linePaddingBottom + (foreCast.getTempH() - tempL) * heightAvg), radius, paint);
+            canvas.drawCircle(paddingLeft, height - (linePaddingBottom + (foreCast.getTempL() - tempL) * heightAvg), radius, paint);
+
             paint.setStrokeWidth(0);
             paint.setStyle(Paint.Style.STROKE);
-
-            canvas.drawText(foreCast.getTempH() + "°", paddingLeft, height - (linePaddingBottom + tempPaddingTop + (foreCast.getTempH() - tempL) * lineAvg), paint);
-            canvas.drawText(foreCast.getTempL() + "°", paddingLeft, height - (linePaddingBottom - tempPaddingBottom + (foreCast.getTempL() - tempL) * lineAvg), paint);
+            canvas.drawText(foreCast.getTempH() + "°", paddingLeft, height - (linePaddingBottom + tempPaddingTop + (foreCast.getTempH() - tempL) * heightAvg), paint);
+            canvas.drawText(foreCast.getTempL() + "°", paddingLeft, height - (linePaddingBottom - tempPaddingBottom + (foreCast.getTempL() - tempL) * heightAvg), paint);
 
             //星期
-            canvas.drawText(DateTimeUtil.getWeekOfDate(foreCast.getWeatherDate()), paddingLeft, height - getFitSize(weekPaddingBottom), paint);
             canvas.drawText(DateTimeUtil.getWeekOfDate(foreCast.getWeatherDate()), paddingLeft, height - getFitSize(weekPaddingBottom), paint);
 
             //天气图标
@@ -145,7 +141,6 @@ public class WeekForecastView extends View {
                     paddingLeft - bitmapDisplay.getWidth() / 2, height - getFitSize(8) - getFitSize((weekPaddingBottom - weekInfoPaddingBottom) / 2 + weekInfoPaddingBottom) - bitmapDisplay.getHeight() / 2, paint);
             bitmap.recycle();
             bitmapDisplay.recycle();
-            //canvas.drawText(DateTimeUtil.getWeekOfDate(foreCast.getWeatherDate()), paddingLeft, height - getFitSize(140), paint);
             //天气描述
             canvas.drawText(foreCast.getWeatherConditionStart(), paddingLeft, height - getFitSize(weekInfoPaddingBottom), paint);
             i++;
@@ -169,7 +164,6 @@ public class WeekForecastView extends View {
                     tempL = weekForeCast.getTempL();
                 }
             }
-            // Log.d(TAG, "max - min" + (tempH - tempL));
             return tempH - tempL;
         }
         return 0;

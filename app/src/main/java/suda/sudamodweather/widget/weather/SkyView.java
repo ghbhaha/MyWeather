@@ -48,13 +48,11 @@ public class SkyView extends FrameLayout {
         this.sunset = sunset;
         this.weather = weather;
         refreshView();
-        invalidate();
     }
 
     public void setWeather(String weather) {
         this.weather = weather;
         refreshView();
-        invalidate();
     }
 
     private void refreshView() {
@@ -71,10 +69,11 @@ public class SkyView extends FrameLayout {
                     R.color.clear_sky_day_start :
                     R.color.clear_sky_night_start);
             if (isNight) {
-                baseView = new SunnyNightView(context, backGroundColor);
+                baseView = new SunnyNightView(context);
             } else {
-                baseView = new SunnyDayView(context, backGroundColor);
+                baseView = new SunnyDayView(context);
             }
+            setBackgroundColor(backGroundColor);
             addView(baseView, layoutParams);
             return;
         }
@@ -82,8 +81,8 @@ public class SkyView extends FrameLayout {
             backGroundColor = getResources().getColor(!isNight ?
                     R.color.cloudy_sky_day_start :
                     R.color.cloudy_sky_night_start);
-
-            baseView = new CloudyView(context, backGroundColor);
+            setBackgroundColor(backGroundColor);
+            baseView = new CloudyView(context);
             addView(baseView, layoutParams);
             return;
         }
@@ -93,13 +92,13 @@ public class SkyView extends FrameLayout {
                     R.color.rain_sky_day_start :
                     R.color.rain_sky_night_start);
             if (weather.contains("雨") && !weather.contains("雪")) {
-                baseView = new RainSnowHazeView(context, RainSnowHazeView.Type.RAIN, backGroundColor);
+                baseView = new RainSnowHazeView(context, RainSnowHazeView.Type.RAIN);
             } else if (!weather.contains("雨") && weather.contains("雪")) {
-                baseView = new RainSnowHazeView(context, RainSnowHazeView.Type.SNOW, backGroundColor);
+                baseView = new RainSnowHazeView(context, RainSnowHazeView.Type.SNOW);
             } else {
-                baseView = new RainSnowHazeView(context, RainSnowHazeView.Type.RAIN_SNOW, backGroundColor);
+                baseView = new RainSnowHazeView(context, RainSnowHazeView.Type.RAIN_SNOW);
             }
-
+            setBackgroundColor(backGroundColor);
             addView(baseView, layoutParams);
             return;
         }
@@ -108,9 +107,8 @@ public class SkyView extends FrameLayout {
             backGroundColor = getResources().getColor(!isNight ?
                     R.color.haze_sky_day_start :
                     R.color.haze_sky_night_start);
-
             setBackgroundColor(backGroundColor);
-            baseView = new RainSnowHazeView(context, RainSnowHazeView.Type.HAZE, backGroundColor);
+            baseView = new RainSnowHazeView(context, RainSnowHazeView.Type.HAZE);
             addView(baseView, layoutParams);
             return;
         }
@@ -118,8 +116,8 @@ public class SkyView extends FrameLayout {
             backGroundColor = getResources().getColor(!isNight ?
                     R.color.overcast_sky_day_start :
                     R.color.overcast_sky_night_start);
-
-            baseView = new CloudyView(context, backGroundColor);
+            setBackgroundColor(backGroundColor);
+            baseView = new CloudyView(context);
             addView(baseView, layoutParams);
             return;
         }
@@ -127,9 +125,8 @@ public class SkyView extends FrameLayout {
             backGroundColor = getResources().getColor(!isNight ?
                     R.color.fog_sky_day_start :
                     R.color.fog_sky_night_start);
-
             setBackgroundColor(backGroundColor);
-            baseView = new FogView(context, backGroundColor);
+            baseView = new FogView(context);
             addView(baseView, layoutParams);
             return;
         }

@@ -28,8 +28,8 @@ public class SunnyDayView extends BaseAnimView {
     private int deltaRadius = 1;
 
 
-    public SunnyDayView(Context context, int backColor) {
-        super(context, backColor);
+    public SunnyDayView(Context context) {
+        super(context);
     }
 
     @Override

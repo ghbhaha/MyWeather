@@ -21,8 +21,8 @@ public class RainSnowHazeView extends BaseAnimView {
     private Paint paint;
     private Type type = Type.RAIN;
 
-    public RainSnowHazeView(Context context, Type type, int backColor) {
-        super(context, backColor);
+    public RainSnowHazeView(Context context, Type type) {
+        super(context);
         this.type = type;
         init2();
     }
@@ -68,25 +68,29 @@ public class RainSnowHazeView extends BaseAnimView {
      */
     @Override
     protected void drawSub(Canvas canvas) {
+        paint.setShadowLayer(getFitSize(10), 0, 0, Color.WHITE);
+
         boolean rain = true;
         for (BaseLine rainLine : rainLines) {
 
             paint.setAlpha(rainLine.getAlpha());
             if (type == Type.HAZE) {
+                paint.setAlpha(100);
                 RectF rect1 = new RectF(rainLine.getStartX() - getFitSize(5), rainLine.getStartY() - getFitSize(5),
                         rainLine.getStartX() + getFitSize(5), rainLine.getStartY() + getFitSize(5));
                 canvas.drawArc(rect1, 0, 360, false, paint);
             } else if (type == Type.SNOW) {
-                RectF rect3 = new RectF(rainLine.getStartX() - getFitSize(5), rainLine.getStartY() - getFitSize(5),
-                        rainLine.getStartX() + getFitSize(5), rainLine.getStartY() + getFitSize(5));
+                RectF rect3 = new RectF(rainLine.getStartX() - getFitSize(8), rainLine.getStartY() - getFitSize(8),
+                        rainLine.getStartX() + getFitSize(8), rainLine.getStartY() + getFitSize(8));
                 canvas.drawArc(rect3, 0, 360, false, paint);
             } else {
                 if (type == Type.RAIN_SNOW)
                     rain = !rain;
-                if (rain)
-                    canvas.drawLine(rainLine.getStartX(), rainLine.getStartY(), rainLine.getStopX(), rainLine.getStopY() + getFitSize(5), paint);
-                else {
-                    RectF rect3 = new RectF(rainLine.getStartX() - getFitSize(5), rainLine.getStartY() - getFitSize(5), rainLine.getStartX() + getFitSize(5), rainLine.getStartY() + getFitSize(5));
+                if (rain) {
+                    paint.setShadowLayer(0, 0, 0, Color.WHITE);
+                    canvas.drawLine(rainLine.getStartX(), rainLine.getStartY(), rainLine.getStopX(), rainLine.getStopY() + getFitSize(8), paint);
+                } else {
+                    RectF rect3 = new RectF(rainLine.getStartX() - getFitSize(8), rainLine.getStartY() - getFitSize(8), rainLine.getStartX() + getFitSize(8), rainLine.getStartY() + getFitSize(5));
                     canvas.drawArc(rect3, 0, 360, false, paint);
                 }
             }
