@@ -72,18 +72,17 @@ public abstract class BaseAnimView extends SurfaceView implements SurfaceHolder.
         while (true) {
             Canvas canvas = null;
             synchronized (this) {
-                canvas = holder.lockCanvas();
-                if (canvas != null) {
-                    canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-                    drawSub(canvas);
-                    animLogic();
-                    holder.unlockCanvasAndPost(canvas);
-                }
-
                 try {
+                    canvas = holder.lockCanvas();
+                    if (canvas != null) {
+                        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+                        drawSub(canvas);
+                        animLogic();
+                        holder.unlockCanvasAndPost(canvas);
+                    }
                     Thread.sleep(sleepTime());
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                   // e.printStackTrace();
                 }
             }
         }

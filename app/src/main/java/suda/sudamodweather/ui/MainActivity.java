@@ -1,6 +1,7 @@
 package suda.sudamodweather.ui;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements BDLocationListene
     private ListView mLvOptItems;
     private WeatherManager weatherManager;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private View contentMian;
+    private ScrollView contentMian;
     //实时天气
     private TextView mRealTempTv, mWeatherAndFeelTemp;
     private TextView mRealAqiTv;
@@ -167,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements BDLocationListene
     }
 
     private void initWidget() {
-        contentMian = findViewById(R.id.content_main);
+        contentMian = (ScrollView) findViewById(R.id.content_main);
         contentMian.setVisibility(View.INVISIBLE);
 
         mCurrentAreaTv = (TextView) findViewById(R.id.tv_topCity);
@@ -272,12 +274,23 @@ public class MainActivity extends AppCompatActivity implements BDLocationListene
                     zhishuList.clear();
                     zhishuList.addAll(weatherInfo.getZhishu());
                     mZhiShuAdapter.notifyDataSetChanged();
+                    contentMian.smoothScrollTo(0,0);
 
                     //预警
-                    Alarms alarms = weatherInfo.getAlarms();
+                    final Alarms alarms = weatherInfo.getAlarms();
                     if (alarms != null) {
+                        mRealAqiTv.setClickable(true);
                         mRealAqiTv.setText(alarms.getAlarmLevelNoDesc() + alarms.getAlarmTypeDesc());
-                    }
+                        mRealAqiTv.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(MainActivity.this, AlarmActivity.class);
+                                intent.putExtra("alarminfo", alarms);
+                                startActivity(intent);
+                            }
+                        });
+                    } else
+                        mRealAqiTv.setClickable(false);
                 }
             }
         });

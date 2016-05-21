@@ -115,6 +115,7 @@ public class WeatherManager extends BaseManager {
                         alarm.setAlarmType(jsonObject.getString("alarmType"));
                         alarm.setAlarmTypeDesc(jsonObject.getString("alarmTypeDesc"));
                         alarm.setPublishTime(jsonObject.getString("publishTime"));
+                        alarm.setAreaName(city.getAreaName());
                         alarm.setAreaid(city.getWeatherId());
                         weatherDao.insertNewAlarm(_context, alarm);
                     }

@@ -84,6 +84,7 @@ public class MyDaoGenerator {
 
     private static void addAlarms(Schema schema) {
         Entity weekForeCast = schema.addEntity("Alarms");
+        weekForeCast.implementsSerializable();
         weekForeCast.addStringProperty("alarmContent");
         weekForeCast.addStringProperty("alarmId");
         weekForeCast.addStringProperty("alarmLevelNo");
@@ -92,6 +93,7 @@ public class MyDaoGenerator {
         weekForeCast.addStringProperty("alarmTypeDesc");
         weekForeCast.addStringProperty("publishTime");
         weekForeCast.addStringProperty("areaid");
+        weekForeCast.addStringProperty("areaName");
     }
 
 }

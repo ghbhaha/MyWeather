@@ -41,6 +41,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="zAYNLNBPQukfyvqVthCut4x7SuR5nOSY" />
 
+        <activity android:name=".ui.AlarmActivity"></activity>
     </application>
 
 </manifest>
