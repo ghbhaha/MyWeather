@@ -6,7 +6,7 @@
     <string name="action_ok">确定</string>
     <string name="activity_home_class_title_air_quality_index">空气质量指数</string>
     <string name="activity_home_class_title_data_source">数据来源 中国天气网</string>
-    <string name="activity_home_class_title_hour_forecast">逐3小时预报</string>
+    <string name="activity_home_class_title_hour_forecast">逐时预报</string>
     <string name="activity_home_class_title_living_index">生活指数</string>
     <string name="activity_home_class_title_precipitation_probability">降水概率</string>
     <string name="activity_home_class_title_sun">日出和日落</string>

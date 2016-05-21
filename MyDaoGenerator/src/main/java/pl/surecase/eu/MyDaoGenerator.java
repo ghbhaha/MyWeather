@@ -14,6 +14,7 @@ public class MyDaoGenerator {
         addAqi(schema);
         addZhishu(schema);
         addUseArea(schema);
+        addAlarms(schema);
         new DaoGenerator().generateAll(schema, "app/src/main/java");
     }
 
@@ -79,6 +80,18 @@ public class MyDaoGenerator {
         weekForeCast.addStringProperty("areaid2345");
         weekForeCast.addStringProperty("areaName");
         weekForeCast.addBooleanProperty("main");
+    }
+
+    private static void addAlarms(Schema schema) {
+        Entity weekForeCast = schema.addEntity("Alarms");
+        weekForeCast.addStringProperty("alarmContent");
+        weekForeCast.addStringProperty("alarmId");
+        weekForeCast.addStringProperty("alarmLevelNo");
+        weekForeCast.addStringProperty("alarmLevelNoDesc");
+        weekForeCast.addStringProperty("alarmType");
+        weekForeCast.addStringProperty("alarmTypeDesc");
+        weekForeCast.addStringProperty("publishTime");
+        weekForeCast.addStringProperty("areaid");
     }
 
 }

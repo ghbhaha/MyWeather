@@ -4,6 +4,8 @@ import android.content.Context;
 
 import java.util.List;
 
+import suda.sudamodweather.dao.greendao.Alarms;
+import suda.sudamodweather.dao.greendao.AlarmsDao;
 import suda.sudamodweather.dao.greendao.Aqi;
 import suda.sudamodweather.dao.greendao.AqiDao;
 import suda.sudamodweather.dao.greendao.HourForeCast;
@@ -115,6 +117,17 @@ public class WeatherDao extends BaseLocalDao {
     public UseArea queryMainUseArea(Context context) {
         UseAreaDao useAreaDao = getDaoSession(context).getUseAreaDao();
         return getSingleData(useAreaDao.queryBuilder().where(UseAreaDao.Properties.Main.eq(true)).list());
+    }
+
+    public void insertNewAlarm(Context context, Alarms alarms) {
+        AlarmsDao alarmsDao = getDaoSession(context).getAlarmsDao();
+        alarmsDao.queryBuilder().where(AlarmsDao.Properties.Areaid.eq(alarms.getAreaid())).buildDelete().executeDeleteWithoutDetachingEntities();
+        alarmsDao.insert(alarms);
+    }
+
+    public Alarms getAlarmByArea(Context context, String areaid) {
+        AlarmsDao alarmsDao = getDaoSession(context).getAlarmsDao();
+        return (Alarms) getSingleData(alarmsDao.queryBuilder().where(AlarmsDao.Properties.Areaid.eq(areaid)).list());
     }
 
 }

@@ -2,6 +2,7 @@ package suda.sudamodweather.manager;
 
 import java.util.List;
 
+import suda.sudamodweather.dao.greendao.Alarms;
 import suda.sudamodweather.dao.greendao.Aqi;
 import suda.sudamodweather.dao.greendao.HourForeCast;
 import suda.sudamodweather.dao.greendao.RealWeather;
@@ -17,6 +18,7 @@ public class WeatherInfo {
     private RealWeather realWeather;
     private Aqi aqi;
     private List<Zhishu> zhishu;
+    private Alarms alarms;
 
     public List<WeekForeCast> getWeekForeCasts() {
         return weekForeCasts;
@@ -57,5 +59,13 @@ public class WeatherInfo {
 
     public void setZhishu(List<Zhishu> zhishu) {
         this.zhishu = zhishu;
+    }
+
+    public Alarms getAlarms() {
+        return alarms;
+    }
+
+    public void setAlarms(Alarms alarms) {
+        this.alarms = alarms;
     }
 }

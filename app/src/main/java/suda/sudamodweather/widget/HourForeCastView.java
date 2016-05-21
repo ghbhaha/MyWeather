@@ -50,7 +50,7 @@ public class HourForeCastView extends View {
         height = width / 2 - getFitSize(20);
         widthAvg = getFitSize(200);
         radius = getFitSize(8);
-        setMeasuredDimension((int) leftRight + (int) widthAvg * 9, (int) height);
+        setMeasuredDimension((int) leftRight + (int) widthAvg * 25, (int) height);
     }
 
     @Override
@@ -73,7 +73,10 @@ public class HourForeCastView extends View {
 
         float paddingLeft = 0;
 
+        //解决path过大无法绘制，分成三段
         Path tempPath = new Path();
+        Path tempPath2 = new Path();
+        Path tempPath3 = new Path();
 
         int i = 1;
         for (HourForeCast foreCast : hourForeCasts) {
@@ -81,8 +84,14 @@ public class HourForeCastView extends View {
 
             if (i == 1) {
                 tempPath.moveTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTemp() - tempL) * lineAvg));
-            } else {
+            } else if (i > 1 && i <= 10) {
                 tempPath.lineTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTemp() - tempL) * lineAvg));
+                tempPath2.moveTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTemp() - tempL) * lineAvg));
+            } else if (i > 10 && i <= 20) {
+                tempPath2.lineTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTemp() - tempL) * lineAvg));
+                tempPath3.moveTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTemp() - tempL) * lineAvg));
+            } else {
+                tempPath3.lineTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTemp() - tempL) * lineAvg));
             }
             paint.setStyle(Paint.Style.FILL);
             paint.setStrokeWidth(getFitSize(2));
@@ -100,6 +109,8 @@ public class HourForeCastView extends View {
         paint.setStrokeWidth(getFitSize(3));
         paint.setStyle(Paint.Style.STROKE);
         canvas.drawPath(tempPath, paint);
+        canvas.drawPath(tempPath2, paint);
+        canvas.drawPath(tempPath3, paint);
     }
 
 

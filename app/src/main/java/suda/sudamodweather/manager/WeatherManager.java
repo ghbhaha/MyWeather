@@ -15,6 +15,7 @@ import java.util.List;
 import suda.sudamodweather.dao.CityDao;
 import suda.sudamodweather.dao.WeatherDao;
 import suda.sudamodweather.dao.bean.City;
+import suda.sudamodweather.dao.greendao.Alarms;
 import suda.sudamodweather.dao.greendao.Aqi;
 import suda.sudamodweather.dao.greendao.HourForeCast;
 import suda.sudamodweather.dao.greendao.RealWeather;
@@ -52,7 +53,7 @@ public class WeatherManager extends BaseManager {
                     List<WeekForeCast> weekForeCasts = weatherDao.queryWeekForeCastByAreaId(_context, areaID);
                     List<HourForeCast> hourForeCasts = weatherDao.queryHourForeCastByAreaId(_context, areaID);
                     List<Zhishu> zhishus = weatherDao.queryZhishuByAreaId(_context, areaID);
-
+                    Alarms alarms = weatherDao.getAlarmByArea(_context, areaID);
                     if (realWeather == null || aqi == null || weekForeCasts.size() == 0 || hourForeCasts.size() == 0 || zhishus.size() == 0 || !useLocal)
                         if (NetworkUtil.checkNetwork(_context))
                             loadWeatherFromNet(areaID, handler);
@@ -64,6 +65,7 @@ public class WeatherManager extends BaseManager {
                         weatherInfo.setHourForeCasts(hourForeCasts);
                         weatherInfo.setAqi(aqi);
                         weatherInfo.setZhishu(zhishus);
+                        weatherInfo.setAlarms(alarms);
                         sendMessage(handler, weatherInfo);
                     }
                 }
@@ -98,11 +100,28 @@ public class WeatherManager extends BaseManager {
                     }
 
                     JSONObject weather2345 = JSON.parseObject(response);
-                    JSONObject weatherflyme = JSON.parseObject(flymeresponse).getJSONArray("value").getJSONObject(0);
+                    JSONObject weatherflyme = JSON.parseObject(flymeresponse);
+
+                    //天气预警
+                    Alarms alarm = null;
+                    JSONArray alarms = weatherflyme.getJSONArray("alarms");
+                    if (alarms.size() > 0) {
+                        JSONObject jsonObject = alarms.getJSONObject(0);
+                        alarm = new Alarms();
+                        alarm.setAlarmContent(jsonObject.getString("alarmContent"));
+                        alarm.setAlarmId(jsonObject.getString("alarmId"));
+                        alarm.setAlarmLevelNo(jsonObject.getString("alarmLevelNo"));
+                        alarm.setAlarmLevelNoDesc(jsonObject.getString("alarmLevelNoDesc"));
+                        alarm.setAlarmType(jsonObject.getString("alarmType"));
+                        alarm.setAlarmTypeDesc(jsonObject.getString("alarmTypeDesc"));
+                        alarm.setPublishTime(jsonObject.getString("publishTime"));
+                        alarm.setAreaid(city.getWeatherId());
+                        weatherDao.insertNewAlarm(_context, alarm);
+                    }
 
                     //小时天气
                     List<HourForeCast> hourForeCasts = new ArrayList<HourForeCast>();
-                    JSONArray hourForecastJson = weatherflyme.getJSONObject("weatherDetailsInfo").getJSONArray("weather3HoursDetailsInfos");
+                    JSONArray hourForecastJson = weatherflyme.getJSONObject("weatherDetailsInfo").getJSONArray("weather24HoursDetailsInfos");
 
                     weatherDao.delHourForeCastByAreaId(_context, areaID);
                     for (int i = 0; i < hourForecastJson.size(); i++) {
@@ -223,6 +242,7 @@ public class WeatherManager extends BaseManager {
                     weatherInfo.setHourForeCasts(hourForeCasts);
                     weatherInfo.setAqi(aqido);
                     weatherInfo.setZhishu(zhishus);
+                    weatherInfo.setAlarms(alarm);
                     sendMessage(handler, weatherInfo);
 
                     //Log.d("respose", response);

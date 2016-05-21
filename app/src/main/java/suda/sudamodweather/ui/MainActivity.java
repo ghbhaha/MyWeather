@@ -39,6 +39,7 @@ import suda.sudamodweather.R;
 import suda.sudamodweather.dao.CityDao;
 import suda.sudamodweather.dao.bean.City;
 import suda.sudamodweather.dao.bean.OptDO;
+import suda.sudamodweather.dao.greendao.Alarms;
 import suda.sudamodweather.dao.greendao.Aqi;
 import suda.sudamodweather.dao.greendao.RealWeather;
 import suda.sudamodweather.dao.greendao.UseArea;
@@ -271,6 +272,12 @@ public class MainActivity extends AppCompatActivity implements BDLocationListene
                     zhishuList.clear();
                     zhishuList.addAll(weatherInfo.getZhishu());
                     mZhiShuAdapter.notifyDataSetChanged();
+
+                    //预警
+                    Alarms alarms = weatherInfo.getAlarms();
+                    if (alarms != null) {
+                        mRealAqiTv.setText(alarms.getAlarmLevelNoDesc() + alarms.getAlarmTypeDesc());
+                    }
                 }
             }
         });
@@ -324,10 +331,6 @@ public class MainActivity extends AppCompatActivity implements BDLocationListene
         windViewSmall = (WindmillView) findViewById(R.id.windViewSmall);
         mWindDegreeTv = (TextView) findViewById(R.id.tv_windDire);
         mWindLevelTv = (TextView) findViewById(R.id.tv_windSpeed);
-        try {
-            progressBar.setProgressDrawable(this.getResources().getDrawable(R.drawable.progress_horizontal_material));
-        } catch (Exception e) {
-        }
 
         new Thread(new Runnable() {
             @Override
