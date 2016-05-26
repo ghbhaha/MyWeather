@@ -27,8 +27,8 @@ public class CloudyView extends BaseAnimView {
     private int deltaRadius = 1;
 
 
-    public CloudyView(Context context) {
-        super(context);
+    public CloudyView(Context context, int backColor) {
+        super(context, backColor);
     }
 
     @Override
@@ -57,6 +57,11 @@ public class CloudyView extends BaseAnimView {
         canvas.drawArc(rect3, 0, 360, false, paint);
         canvas.drawArc(rect2, 0, 360, false, paint);
         canvas.drawArc(rect1, 0, 360, false, paint);
+    }
+
+    @Override
+    protected void reset() {
+        radius = MIN;
     }
 
     @Override

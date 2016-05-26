@@ -24,8 +24,8 @@ public class FogView extends BaseAnimView {
     private float radius = MIN;
     private int deltaRadius = 1;
 
-    public FogView(Context context) {
-        super(context);
+    public FogView(Context context, int backColor) {
+        super(context,backColor);
     }
 
     @Override
@@ -53,6 +53,11 @@ public class FogView extends BaseAnimView {
 
         canvas.drawArc(rect1, 0, 360, false, paint);
         canvas.drawArc(rect2, 0, 360, false, paint);
+    }
+
+    @Override
+    protected void reset() {
+        radius = MIN;
     }
 
     @Override

@@ -2,7 +2,6 @@ package suda.sudamodweather.widget.weather;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
@@ -16,10 +15,10 @@ import suda.sudamodweather.util.DateTimeUtil;
 public class SkyView extends FrameLayout {
 
     LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-    private String weather;
+    private String weather, oldWeather = "";
     private String sunrise = "06:00", sunset = "18:00";
     private Context context;
-    private View baseView;
+    private BaseAnimView baseView;
     private int backGroundColor = R.color.clear_sky_day_start;
 
 
@@ -57,6 +56,12 @@ public class SkyView extends FrameLayout {
 
     private void refreshView() {
 
+        if (oldWeather.equals(weather)) {
+            baseView.reset();
+            return;
+        }
+        oldWeather = weather;
+
         this.removeAllViews();
         if (baseView != null) {
             baseView = null;
@@ -69,9 +74,9 @@ public class SkyView extends FrameLayout {
                     R.color.clear_sky_day_start :
                     R.color.clear_sky_night_start);
             if (isNight) {
-                baseView = new SunnyNightView(context);
+                baseView = new SunnyNightView(context, backGroundColor);
             } else {
-                baseView = new SunnyDayView(context);
+                baseView = new SunnyDayView(context, backGroundColor);
             }
             setBackgroundColor(backGroundColor);
             addView(baseView, layoutParams);
@@ -82,7 +87,7 @@ public class SkyView extends FrameLayout {
                     R.color.cloudy_sky_day_start :
                     R.color.cloudy_sky_night_start);
             setBackgroundColor(backGroundColor);
-            baseView = new CloudyView(context);
+            baseView = new CloudyView(context, backGroundColor);
             addView(baseView, layoutParams);
             return;
         }
@@ -92,11 +97,11 @@ public class SkyView extends FrameLayout {
                     R.color.rain_sky_day_start :
                     R.color.rain_sky_night_start);
             if (weather.contains("雨") && !weather.contains("雪")) {
-                baseView = new RainSnowHazeView(context, RainSnowHazeView.Type.RAIN);
+                baseView = new RainSnowHazeView(context, RainSnowHazeView.Type.RAIN, backGroundColor);
             } else if (!weather.contains("雨") && weather.contains("雪")) {
-                baseView = new RainSnowHazeView(context, RainSnowHazeView.Type.SNOW);
+                baseView = new RainSnowHazeView(context, RainSnowHazeView.Type.SNOW, backGroundColor);
             } else {
-                baseView = new RainSnowHazeView(context, RainSnowHazeView.Type.RAIN_SNOW);
+                baseView = new RainSnowHazeView(context, RainSnowHazeView.Type.RAIN_SNOW, backGroundColor);
             }
             setBackgroundColor(backGroundColor);
             addView(baseView, layoutParams);
@@ -108,7 +113,7 @@ public class SkyView extends FrameLayout {
                     R.color.haze_sky_day_start :
                     R.color.haze_sky_night_start);
             setBackgroundColor(backGroundColor);
-            baseView = new RainSnowHazeView(context, RainSnowHazeView.Type.HAZE);
+            baseView = new RainSnowHazeView(context, RainSnowHazeView.Type.HAZE, backGroundColor);
             addView(baseView, layoutParams);
             return;
         }
@@ -117,7 +122,7 @@ public class SkyView extends FrameLayout {
                     R.color.overcast_sky_day_start :
                     R.color.overcast_sky_night_start);
             setBackgroundColor(backGroundColor);
-            baseView = new CloudyView(context);
+            baseView = new CloudyView(context, backGroundColor);
             addView(baseView, layoutParams);
             return;
         }
@@ -126,7 +131,7 @@ public class SkyView extends FrameLayout {
                     R.color.fog_sky_day_start :
                     R.color.fog_sky_night_start);
             setBackgroundColor(backGroundColor);
-            baseView = new FogView(context);
+            baseView = new FogView(context, backGroundColor);
             addView(baseView, layoutParams);
             return;
         }

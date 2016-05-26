@@ -28,8 +28,8 @@ public class SunnyDayView extends BaseAnimView {
     private int deltaRadius = 1;
 
 
-    public SunnyDayView(Context context) {
-        super(context);
+    public SunnyDayView(Context context,int backColor) {
+        super(context,backColor);
     }
 
     @Override
@@ -92,5 +92,10 @@ public class SunnyDayView extends BaseAnimView {
     @Override
     public void run() {
         doLogic();
+    }
+
+    @Override
+    protected void reset() {
+        radius = MIN;
     }
 }

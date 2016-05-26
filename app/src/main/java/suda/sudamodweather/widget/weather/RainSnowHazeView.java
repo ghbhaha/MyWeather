@@ -15,14 +15,13 @@ import java.util.ArrayList;
  */
 public class RainSnowHazeView extends BaseAnimView {
 
-
     private static final int RAIN_COUNT = 60; //雨点个数
     private ArrayList<BaseLine> rainLines;
     private Paint paint;
     private Type type = Type.RAIN;
 
-    public RainSnowHazeView(Context context, Type type) {
-        super(context);
+    public RainSnowHazeView(Context context, Type type,int backColor) {
+        super(context,backColor);
         this.type = type;
         init2();
     }
@@ -115,6 +114,11 @@ public class RainSnowHazeView extends BaseAnimView {
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+    }
+
+    @Override
+    protected void reset() {
 
     }
 

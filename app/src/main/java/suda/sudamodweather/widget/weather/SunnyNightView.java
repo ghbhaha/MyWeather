@@ -19,8 +19,8 @@ public class SunnyNightView extends BaseAnimView {
     private static final int STAR_COUNT = 150; //星星数
     private ArrayList<Star> stars;
 
-    public SunnyNightView(Context context) {
-        super(context);
+    public SunnyNightView(Context context, int backColor) {
+        super(context,backColor);
     }
 
     @Override
@@ -81,4 +81,10 @@ public class SunnyNightView extends BaseAnimView {
     public void run() {
         doLogic();
     }
+
+    @Override
+    protected void reset() {
+
+    }
+    
 }
