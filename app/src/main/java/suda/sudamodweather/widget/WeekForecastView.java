@@ -131,18 +131,18 @@ public class WeekForecastView extends View {
             canvas.drawText(foreCast.getTempL() + "°", paddingLeft, height - (linePaddingBottom - tempPaddingBottom + (foreCast.getTempL() - tempL) * heightAvg), paint);
 
             //星期
-            canvas.drawText(DateTimeUtil.getWeekOfDate(foreCast.getWeatherDate()), paddingLeft, height - getFitSize(weekPaddingBottom), paint);
+            canvas.drawText(DateTimeUtil.getWeekOfDate(foreCast.getWeatherDate()), paddingLeft, height - (weekPaddingBottom), paint);
 
             //天气图标
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), WeatherIconUtil.getWeatherIconID(foreCast.getWeatherConditionStart()));
             Bitmap bitmapDisplay = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 
             canvas.drawBitmap(bitmapDisplay,
-                    paddingLeft - bitmapDisplay.getWidth() / 2, height - getFitSize(8) - getFitSize((weekPaddingBottom - weekInfoPaddingBottom) / 2 + weekInfoPaddingBottom) - bitmapDisplay.getHeight() / 2, paint);
+                    paddingLeft - bitmapDisplay.getWidth() / 2, height - getFitSize(8) - ((weekPaddingBottom - weekInfoPaddingBottom) / 2 + weekInfoPaddingBottom) - bitmapDisplay.getHeight() / 2, paint);
             bitmap.recycle();
             bitmapDisplay.recycle();
             //天气描述
-            canvas.drawText(foreCast.getWeatherConditionStart(), paddingLeft, height - getFitSize(weekInfoPaddingBottom), paint);
+            canvas.drawText(foreCast.getWeatherConditionStart(), paddingLeft, height - (weekInfoPaddingBottom), paint);
             i++;
         }
         paint.setStrokeWidth(getFitSize(3));

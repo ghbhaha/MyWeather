@@ -72,7 +72,7 @@ public class WindForecastView extends View {
         int i = 1;
         for (WeekForeCast weekForeCast : foreCasts) {
             paddingLeft = leftRight / 2 + (i - 1 + 0.5f) * widthAvg;
-            canvas.drawText(weekForeCast.getFj(), paddingLeft, height - getFitSize(height / 2), paint);
+            canvas.drawText(weekForeCast.getFj(), paddingLeft, height / 2, paint);
             i++;
         }
     }
