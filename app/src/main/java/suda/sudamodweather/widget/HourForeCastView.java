@@ -61,7 +61,7 @@ public class HourForeCastView extends View {
         paint.setColor(Color.WHITE);
         paint.setAntiAlias(true);
         paint.setStrokeWidth(0);
-        paint.setTextSize(getFitSize(35));
+        paint.setTextSize(ScreenUtil.getSp(context, 13));
         paint.setTextAlign(Paint.Align.CENTER);
 
         float weatherDetallPadding = getFitSize(50);

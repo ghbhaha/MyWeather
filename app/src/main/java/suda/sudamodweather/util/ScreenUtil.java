@@ -20,6 +20,11 @@ public final class ScreenUtil {
         return wm.getDefaultDisplay().getHeight();
     }
 
+    public static int Dp2Px(Context context, float dp) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dp * scale + 0.5f);
+    }
+
     /**
      * 将px值转换为dip或dp值，保证尺寸大小不变
      *
@@ -46,5 +51,11 @@ public final class ScreenUtil {
             result = context.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    public static int getSp(Context context, float value) {
+        return (int) TypedValue
+                .applyDimension(TypedValue.COMPLEX_UNIT_SP, value, context.getResources()
+                        .getDisplayMetrics());
     }
 }

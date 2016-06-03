@@ -82,7 +82,7 @@ public class WeekForecastView extends View {
         paint.setAntiAlias(true);
         paint.setStrokeWidth(0);
         paint.setTextAlign(Paint.Align.CENTER);
-        paint.setTextSize(getFitSize(35));
+        paint.setTextSize(ScreenUtil.getSp(context, 13));
 
         drawWeatherDetail(canvas);
 

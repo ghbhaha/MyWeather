@@ -66,7 +66,7 @@ public class WindForecastView extends View {
 
         paint.setColor(Color.WHITE);
         paint.setAntiAlias(true);
-        paint.setTextSize(getFitSize(35));
+        paint.setTextSize(ScreenUtil.getSp(context, 13));
         paint.setStrokeWidth(0);
 
         int i = 1;

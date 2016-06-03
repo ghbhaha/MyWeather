@@ -51,6 +51,8 @@ public class WeatherManager extends BaseManager {
                     RealWeather realWeather = weatherDao.queryRealweatherByAreaId(_context, areaID);
                     Aqi aqi = weatherDao.queryAqiByAreaId(_context, areaID);
                     List<WeekForeCast> weekForeCasts = weatherDao.queryWeekForeCastByAreaId(_context, areaID);
+//                    if (weekForeCasts != null && weekForeCasts.size() > 1)
+//                        weekForeCasts.remove(weekForeCasts.size() - 1);
                     List<HourForeCast> hourForeCasts = weatherDao.queryHourForeCastByAreaId(_context, areaID);
                     List<Zhishu> zhishus = weatherDao.queryZhishuByAreaId(_context, areaID);
                     Alarms alarms = weatherDao.getAlarmByArea(_context, areaID);

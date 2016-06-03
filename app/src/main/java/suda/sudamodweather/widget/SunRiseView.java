@@ -12,6 +12,7 @@ import android.view.View;
 import java.util.Calendar;
 
 import suda.sudamodweather.R;
+import suda.sudamodweather.util.ScreenUtil;
 
 /**
  * Created by ghbha on 2016/5/14.
@@ -42,8 +43,8 @@ public class SunRiseView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        width = MeasureSpec.getSize(widthMeasureSpec);
-        height = width * 550 / 992;
+        width = ScreenUtil.getScreenWidth(context);
+        height = getFitSize(550);
         setMeasuredDimension(width, height);
     }
 
@@ -58,7 +59,7 @@ public class SunRiseView extends View {
         paint.setAlpha(160);
 
         int center = width / 2;
-        int radius = height - getFitSize(100);
+        int radius = height - getFitSize(120);
         RectF rect = new RectF(center - radius, center - radius, center
                 + radius, center + radius);
 
@@ -89,7 +90,7 @@ public class SunRiseView extends View {
         //绘制日出日落时间
         paint.setStyle(Paint.Style.FILL);
         paint.setAlpha(255);
-        paint.setTextSize(getFitSize(34));
+        paint.setTextSize(ScreenUtil.getSp(context, 13));
         paint.setStrokeWidth((float) 1.0);
         paint.setTextAlign(Paint.Align.CENTER);
 
@@ -143,6 +144,6 @@ public class SunRiseView extends View {
     }
 
     private int getFitSize(int orgSize) {
-        return orgSize * width / 992;
+        return orgSize * width / 1080;
     }
 }
