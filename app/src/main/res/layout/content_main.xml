@@ -46,70 +46,77 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
+                    android:id="@+id/first_show_rl"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/tv_updateTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="20.0dip"
-                        android:layout_marginTop="15.0dip"
-                        android:gravity="right"
-                        android:text="20:01 刷新"
-                        android:textColor="@color/home_text_color_dark"
-                        android:textSize="13.0sp" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/tv_RTTemp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/tv_updateTime"
-                        android:layout_centerHorizontal="true"
-                        android:fontFamily="sans-serif-thin"
-                        android:gravity="center"
-                        android:text="20"
-                        android:textColor="@color/home_text_color"
-                        android:textSize="90.0sp"
-                        android:textStyle="normal" />
+                        <TextView
+                            android:id="@+id/tv_updateTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="20.0dip"
+                            android:layout_marginTop="15.0dip"
+                            android:gravity="right"
+                            android:text="20:01 刷新"
+                            android:textColor="@color/home_text_color_dark"
+                            android:textSize="13.0sp" />
 
-                    <TextView
-                        android:id="@+id/tv_degree"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@id/tv_RTTemp"
-                        android:layout_toRightOf="@id/tv_RTTemp"
-                        android:fontFamily="sans-serif-thin"
-                        android:text="°"
-                        android:textColor="@color/home_text_color"
-                        android:textSize="60.0sp"
-                        android:textStyle="normal" />
+                        <TextView
+                            android:id="@+id/tv_RTTemp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_updateTime"
+                            android:layout_centerHorizontal="true"
+                            android:fontFamily="sans-serif-thin"
+                            android:gravity="center"
+                            android:text="20"
+                            android:textColor="@color/home_text_color"
+                            android:textSize="90.0sp"
+                            android:textStyle="normal" />
 
-                    <TextView
-                        android:id="@+id/tv_RTTypeAndRealFeel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/tv_RTTemp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="5.0dip"
-                        android:text="晴 | 体感 21°"
-                        android:textColor="@color/home_text_color_dark"
-                        android:textSize="14.0sp" />
+                        <TextView
+                            android:id="@+id/tv_degree"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@id/tv_RTTemp"
+                            android:layout_toRightOf="@id/tv_RTTemp"
+                            android:fontFamily="sans-serif-thin"
+                            android:text="°"
+                            android:textColor="@color/home_text_color"
+                            android:textSize="60.0sp"
+                            android:textStyle="normal" />
 
-                    <TextView
-                        android:id="@+id/tv_aqi"
-                        style="@style/HomeCustomButtonStyle"
-                        android:layout_below="@id/tv_RTTypeAndRealFeel"
-                        android:clickable="true"
-                        android:text="空气良 59" />
+                        <TextView
+                            android:id="@+id/tv_RTTypeAndRealFeel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_RTTemp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="5.0dip"
+                            android:text="晴 | 体感 21°"
+                            android:textColor="@color/home_text_color_dark"
+                            android:textSize="14.0sp" />
 
+                        <TextView
+                            android:id="@+id/tv_aqi"
+                            style="@style/HomeCustomButtonStyle"
+                            android:layout_below="@id/tv_RTTypeAndRealFeel"
+                            android:clickable="true"
+                            android:text="空气良 59" />
+
+                    </RelativeLayout>
+
+                    <suda.sudamodweather.widget.WeekForecastView
+                        android:id="@+id/weekForecast"
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
                 </RelativeLayout>
-
-                <suda.sudamodweather.widget.WeekForecastView
-                    android:id="@+id/weekForecast"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
 
                 <View
                     android:layout_width="fill_parent"

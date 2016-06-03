@@ -22,7 +22,10 @@ public class WindmillView extends View {
     //圆心
     private float centerX, centerY;
     //构成最下面扇子的4个点
-    float x1, y1, x2, y2, x3, y3, x4, y4;
+    private float x1, y1, x2, y2, x3, y3, x4, y4;
+    //支架底部
+    private float holderX;
+
 
     public WindmillView(Context context) {
         super(context);
@@ -73,6 +76,7 @@ public class WindmillView extends View {
         y4 = height / 2 + getFitSize(400);
         centerX = width / 2;
         centerY = height / 2 - getFitSize(50);
+        holderX = getFitSize(180);
     }
 
 
@@ -96,9 +100,9 @@ public class WindmillView extends View {
     private void drawHolder(Canvas canvas) {
         Path path = new Path();
         paint.setStyle(Paint.Style.STROKE);
-        path.moveTo(getFitSize(180), height);
+        path.moveTo(holderX, height);
         path.lineTo(centerX, centerY);
-        path.lineTo(width - getFitSize(180), height);
+        path.lineTo(width - holderX, height);
         canvas.drawPath(path, paint);
     }
 
@@ -106,9 +110,8 @@ public class WindmillView extends View {
      * 绘制风车扇子
      */
     private void drawFan(Canvas canvas) {
-        final Path path = new Path();
+        Path path = new Path();
         paint.setStyle(Paint.Style.FILL);
-
         path.moveTo(x1, y1);
         path.cubicTo(x1, y1, x2, y2, x3, y3);
         path.cubicTo(x3, y3, x4, y4, x1, y1);

@@ -3,6 +3,7 @@ package suda.sudamodweather.ui;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -52,6 +53,7 @@ import suda.sudamodweather.ui.adapter.OptMenuAdapter;
 import suda.sudamodweather.ui.adapter.ZhiShuAdapter;
 import suda.sudamodweather.util.Constant;
 import suda.sudamodweather.util.GpsUtil;
+import suda.sudamodweather.util.ScreenUtil;
 import suda.sudamodweather.util.TextUtil;
 import suda.sudamodweather.widget.AqiView;
 import suda.sudamodweather.widget.HourForeCastView;
@@ -101,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements BDLocationListene
     private MyListView mZhishuLv;
     private ZhiShuAdapter mZhiShuAdapter;
     private List<Zhishu> zhishuList;
+    private View mFirstShowRl;
 
 
     @Override
@@ -196,6 +199,12 @@ public class MainActivity extends AppCompatActivity implements BDLocationListene
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawLayout);
 
+        mFirstShowRl = findViewById(R.id.first_show_rl);
+
+        TypedArray actionbarSizeTypedArray = this.obtainStyledAttributes(new int[]{android.R.attr.actionBarSize});
+        int h = (int) actionbarSizeTypedArray.getDimension(0, 0);
+        mFirstShowRl.getLayoutParams().height = ScreenUtil.getScreenHeight(this) - h - ScreenUtil.getStatusBarHeight(this);
+
         setDrawerLayout();
         setRealWeather();
         setForeCast();
@@ -274,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements BDLocationListene
                     zhishuList.clear();
                     zhishuList.addAll(weatherInfo.getZhishu());
                     mZhiShuAdapter.notifyDataSetChanged();
-                    contentMian.smoothScrollTo(0,0);
+                    contentMian.smoothScrollTo(0, 0);
 
                     //预警
                     final Alarms alarms = weatherInfo.getAlarms();
