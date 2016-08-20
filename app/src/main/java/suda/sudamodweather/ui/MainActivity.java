@@ -66,46 +66,6 @@ import suda.sudamodweather.widget.weather.SkyView;
 
 public class MainActivity extends AppCompatActivity implements BDLocationListener {
 
-    private CityDao cityDao = new CityDao(this);
-    private String weatherID = "101190501";
-    private boolean openOrClose = false;
-    private Toolbar mToolbar;
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mDrawerToggle;
-    private TextView mCurrentAreaTv;
-    private OptMenuAdapter optMenuAdapter;
-    private ListView mLvOptItems;
-    private WeatherManager weatherManager;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private ScrollView contentMian;
-    //实时天气
-    private TextView mRealTempTv, mWeatherAndFeelTemp;
-    private TextView mRealAqiTv;
-    private TextView mUpdateTimeTv;
-    private SkyView mSkyView;
-
-    //风速湿度
-    private WindmillView windViewBig;
-    private WindmillView windViewSmall;
-    private TextView mWindDegreeTv, mWindLevelTv;
-    private TextView mShiduTv;
-    private ProgressBar progressBar;
-    //空气指数
-    private AqiView mAqi;
-    private TextView mPm2_5Tv, mPm10Tv, mSo2Tv, mNo2Tv;
-    //日出日落图
-    private SunRiseView mSunRiseView;
-    //周报 时报
-    private WeekForecastView weekForeCastView;
-    private HourForeCastView hourForeCastView;
-    private WindForecastView windForecastView;
-    //指数
-    private MyListView mZhishuLv;
-    private ZhiShuAdapter mZhiShuAdapter;
-    private List<Zhishu> zhishuList;
-    private View mFirstShowRl;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -455,5 +415,46 @@ public class MainActivity extends AppCompatActivity implements BDLocationListene
         alert.setCanceledOnTouchOutside(true);
         alert.show();
     }
+
+    //////////////////////////////////////////////////////
+    private CityDao cityDao = new CityDao(this);
+    private String weatherID = "101190501";
+    private boolean openOrClose = false;
+    private Toolbar mToolbar;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private TextView mCurrentAreaTv;
+    private OptMenuAdapter optMenuAdapter;
+    private ListView mLvOptItems;
+    private WeatherManager weatherManager;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private ScrollView contentMian;
+    //实时天气
+    private TextView mRealTempTv, mWeatherAndFeelTemp;
+    private TextView mRealAqiTv;
+    private TextView mUpdateTimeTv;
+    private SkyView mSkyView;
+
+    //风速湿度
+    private WindmillView windViewBig;
+    private WindmillView windViewSmall;
+    private TextView mWindDegreeTv, mWindLevelTv;
+    private TextView mShiduTv;
+    private ProgressBar progressBar;
+    //空气指数
+    private AqiView mAqi;
+    private TextView mPm2_5Tv, mPm10Tv, mSo2Tv, mNo2Tv;
+    //日出日落图
+    private SunRiseView mSunRiseView;
+    //周报 时报
+    private WeekForecastView weekForeCastView;
+    private HourForeCastView hourForeCastView;
+    private WindForecastView windForecastView;
+    //指数
+    private MyListView mZhishuLv;
+    private ZhiShuAdapter mZhiShuAdapter;
+    private List<Zhishu> zhishuList;
+    private View mFirstShowRl;
+
 
 }

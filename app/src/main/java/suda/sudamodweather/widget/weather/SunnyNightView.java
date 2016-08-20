@@ -15,10 +15,6 @@ import java.util.ArrayList;
  */
 public class SunnyNightView extends BaseAnimView {
 
-    private Paint paint;
-    private static final int STAR_COUNT = 150; //星星数
-    private ArrayList<Star> stars;
-
     public SunnyNightView(Context context, int backColor) {
         super(context,backColor);
     }
@@ -86,5 +82,9 @@ public class SunnyNightView extends BaseAnimView {
     protected void reset() {
 
     }
-    
+
+    ///////////////////////////////////////////////////////
+    private Paint paint;
+    private static final int STAR_COUNT = 150; //星星数
+    private ArrayList<Star> stars;
 }

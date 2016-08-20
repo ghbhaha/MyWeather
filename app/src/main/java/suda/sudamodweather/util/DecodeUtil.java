@@ -25,7 +25,8 @@ public class DecodeUtil {
         cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(
                 "2345tqIv_shiqing".getBytes()));// 使用解密模式初始化 密钥
         byte[] decrypt = cipher.doFinal(hexString2Bytes(str));
-        String response = decodeUnicode(new String(decrypt));
+        // String response = decodeUnicode(new String(decrypt));
+        String response = new String(decrypt);
         int last = response.lastIndexOf("}");
         response = response.substring(0, last + 1);
         // System.out.println(response);

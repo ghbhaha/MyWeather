@@ -19,16 +19,6 @@ import suda.sudamodweather.util.ScreenUtil;
  */
 public class HourForeCastView extends View {
 
-    private final static String TAG = "HourForeCastView";
-    Paint paint = new Paint();
-    float widthAvg;
-    private float height, width;
-    private List<HourForeCast> hourForeCasts = new ArrayList<>();
-    private int tempH, tempL;
-    private Context context;
-    private float radius = 0;
-    private float leftRight = 0;
-
     public HourForeCastView(Context context) {
         super(context);
         this.context = context;
@@ -81,7 +71,6 @@ public class HourForeCastView extends View {
         int i = 1;
         for (HourForeCast foreCast : hourForeCasts) {
             paddingLeft = leftRight / 2 + (i - 1 + 0.5f) * widthAvg;
-
             if (i == 1) {
                 tempPath.moveTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTemp() - tempL) * lineAvg));
             } else if (i > 1 && i <= 10) {
@@ -141,4 +130,14 @@ public class HourForeCastView extends View {
         return orgSize * width * 1.0f / 1080;
     }
 
+
+    private final static String TAG = "HourForeCastView";
+    Paint paint = new Paint();
+    float widthAvg;
+    private float height, width;
+    private List<HourForeCast> hourForeCasts = new ArrayList<>();
+    private int tempH, tempL;
+    private Context context;
+    private float radius = 0;
+    private float leftRight = 0;
 }

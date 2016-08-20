@@ -25,35 +25,6 @@ import suda.sudamodweather.util.WeatherIconUtil;
  */
 public class WeekForecastView extends View {
 
-
-    private final static String TAG = "ForeCastView";
-    /**
-     * 高度
-     */
-    private float height, width;
-    private Paint paint = new Paint();
-
-    private Context context;
-
-    private List<WeekForeCast> foreCasts = new ArrayList<>();
-
-    private float maxMinDelta;
-
-    private int tempH, tempL;
-
-
-    private float radius = 0;
-
-    private float leftRight;
-
-    private int lineType = 1;
-
-    private List<PointF> mPointHs = new ArrayList<>();
-    private List<PointF> mPointLs = new ArrayList<>();
-    private List<PointF> mMidPoints = new ArrayList<>();
-    private List<PointF> mMidMidPoints = new ArrayList<>();
-    private List<PointF> mControlPoints = new ArrayList<>();
-
     public WeekForecastView(Context context) {
         super(context);
         this.context = context;
@@ -88,7 +59,7 @@ public class WeekForecastView extends View {
         paint.setAntiAlias(true);
         paint.setStrokeWidth(0);
         paint.setTextAlign(Paint.Align.CENTER);
-        paint.setTextSize(ScreenUtil.getSp(context, 13));
+        paint.setTextSize(ScreenUtil.getSp(context, 12));
 
         drawWeatherDetail(canvas);
 
@@ -177,7 +148,6 @@ public class WeekForecastView extends View {
             drawBezier(canvas, pathTempLow, mPointLs);
         }
     }
-
 
     private int getMaxMinDelta() {
         if (foreCasts.size() > 0) {
@@ -270,4 +240,21 @@ public class WeekForecastView extends View {
         return orgSize * width * 1.0f / 1080;
     }
 
+
+    ////////////////////////////////////////////////////////////
+    private final static String TAG = "ForeCastView";
+    private float height, width;
+    private Paint paint = new Paint();
+    private Context context;
+    private List<WeekForeCast> foreCasts = new ArrayList<>();
+    private float maxMinDelta;
+    private int tempH, tempL;
+    private float radius = 0;
+    private float leftRight;
+    private int lineType = 1;
+    private List<PointF> mPointHs = new ArrayList<>();
+    private List<PointF> mPointLs = new ArrayList<>();
+    private List<PointF> mMidPoints = new ArrayList<>();
+    private List<PointF> mMidMidPoints = new ArrayList<>();
+    private List<PointF> mControlPoints = new ArrayList<>();
 }

@@ -14,12 +14,6 @@ import java.util.ArrayList;
  * Created by ghbha on 2016/5/16.
  */
 public class RainSnowHazeView extends BaseAnimView {
-
-    private static final int RAIN_COUNT = 60; //雨点个数
-    private ArrayList<BaseLine> rainLines;
-    private Paint paint;
-    private Type type = Type.RAIN;
-
     public RainSnowHazeView(Context context, Type type,int backColor) {
         super(context,backColor);
         this.type = type;
@@ -140,5 +134,12 @@ public class RainSnowHazeView extends BaseAnimView {
     public enum Type {
         RAIN, SNOW, RAIN_SNOW, HAZE;
     }
+
+    ////////////////////////////////////////////////////////////////
+    private static final int RAIN_COUNT = 60; //雨点个数
+    private ArrayList<BaseLine> rainLines;
+    private Paint paint;
+    private Type type = Type.RAIN;
+
 
 }

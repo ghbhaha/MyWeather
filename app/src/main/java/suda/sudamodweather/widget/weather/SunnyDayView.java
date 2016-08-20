@@ -13,21 +13,6 @@ import android.view.SurfaceHolder;
  */
 public class SunnyDayView extends BaseAnimView {
 
-    Paint paint;
-
-    //最内圆最小半径
-    private float MIN = getFitSize(200);
-    //最内圆最大半径
-    private float MAX = getFitSize(260);
-
-    private float addRadius = getFitSize(200);
-
-    //最内圆半径
-    private float radius = MIN;
-
-    private int deltaRadius = 1;
-
-
     public SunnyDayView(Context context,int backColor) {
         super(context,backColor);
     }
@@ -50,7 +35,6 @@ public class SunnyDayView extends BaseAnimView {
             deltaRadius = -deltaRadius;
         }
 
-
         RectF rect1 = new RectF(-radius, -radius, radius, radius);
         RectF rect2 = new RectF(-(radius + addRadius), -(radius + addRadius), (radius + addRadius), (radius + addRadius));
         RectF rect3 = new RectF(-(radius + 2 * addRadius), -(radius + 2 * addRadius), (radius + 2 * addRadius), (radius + 2 * addRadius));
@@ -60,7 +44,6 @@ public class SunnyDayView extends BaseAnimView {
         canvas.drawArc(rect2, 0, 360, false, paint);
         paint.setAlpha(15);
         canvas.drawArc(rect1, 0, 360, false, paint);
-
     }
 
     @Override
@@ -98,4 +81,17 @@ public class SunnyDayView extends BaseAnimView {
     protected void reset() {
         radius = MIN;
     }
+
+    ////////////////////////////////////////////////////////////
+    Paint paint;
+
+    //最内圆最小半径
+    private float MIN = getFitSize(200);
+    //最内圆最大半径
+    private float MAX = getFitSize(260);
+    private float addRadius = getFitSize(200);
+
+    //最内圆半径
+    private float radius = MIN;
+    private int deltaRadius = 1;
 }

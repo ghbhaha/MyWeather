@@ -10,13 +10,6 @@ import android.view.SurfaceView;
 
 public abstract class BaseAnimView extends SurfaceView implements SurfaceHolder.Callback, Runnable {
 
-    protected Thread thread;
-    protected int backColor = 0;
-    protected int windowWidth; //屏幕宽
-    protected int windowHeight; //屏幕高
-    protected int sleepTime = 30;
-    protected SurfaceHolder holder;
-
     public BaseAnimView(Context context, int backColor) {
         super(context);
         holder = getHolder();
@@ -87,4 +80,12 @@ public abstract class BaseAnimView extends SurfaceView implements SurfaceHolder.
             }
         }
     }
+
+    //////////////////////////////////////////////
+    protected Thread thread;
+    protected int backColor = 0;
+    protected int windowWidth; //屏幕宽
+    protected int windowHeight; //屏幕高
+    protected int sleepTime = 30;
+    protected SurfaceHolder holder;
 }

@@ -6,20 +6,6 @@ import java.util.Random;
  * Created by ghbha on 2016/5/16.
  */
 public abstract class BaseLine {
-    protected Random random = new Random();
-
-    protected int alpha = 100;
-
-    protected int startX;
-    protected int startY;
-    protected int stopX;
-    protected int stopY;
-
-    protected int deltaX = 6;
-    protected int deltaY = 10;
-
-    protected int maxX; //x最大范围
-    protected int maxY; //y最大范围
 
     public BaseLine(int maxX, int maxY) {
         this.maxX = maxX;
@@ -75,4 +61,16 @@ public abstract class BaseLine {
     public int getAlpha() {
         return alpha;
     }
+
+    ////////////////////////////////////////////////////
+    protected Random random = new Random();
+    protected int alpha = 100;
+    protected int startX;
+    protected int startY;
+    protected int stopX;
+    protected int stopY;
+    protected int deltaX = 6;
+    protected int deltaY = 10;
+    protected int maxX; //x最大范围
+    protected int maxY; //y最大范围
 }

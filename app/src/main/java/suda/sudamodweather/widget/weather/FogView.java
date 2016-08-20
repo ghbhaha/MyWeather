@@ -13,17 +13,6 @@ import android.view.SurfaceHolder;
  */
 public class FogView extends BaseAnimView {
 
-    Paint paint;
-
-    //圆最小半径
-    private float MIN = getFitSize(1080);
-    //圆最大半径
-    private float MAX = MIN + getFitSize(80);
-
-    //圆半径
-    private float radius = MIN;
-    private int deltaRadius = 1;
-
     public FogView(Context context, int backColor) {
         super(context,backColor);
     }
@@ -91,4 +80,14 @@ public class FogView extends BaseAnimView {
     public void run() {
         doLogic();
     }
+
+    ///////////////////////////////////////////////////////
+    Paint paint;
+    //圆最小半径
+    private float MIN = getFitSize(1080);
+    //圆最大半径
+    private float MAX = MIN + getFitSize(80);
+    //圆半径
+    private float radius = MIN;
+    private int deltaRadius = 1;
 }

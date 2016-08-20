@@ -13,20 +13,6 @@ import android.view.SurfaceHolder;
  */
 public class CloudyView extends BaseAnimView {
 
-
-    Paint paint;
-
-    //圆最小半径
-    private float MIN = getFitSize(560);
-    //圆最大半径
-    private float MAX = MIN + getFitSize(60);
-
-    //圆半径
-    private float radius = MIN;
-
-    private int deltaRadius = 1;
-
-
     public CloudyView(Context context, int backColor) {
         super(context, backColor);
     }
@@ -94,4 +80,14 @@ public class CloudyView extends BaseAnimView {
     public void run() {
         doLogic();
     }
+
+    //////////////////////////////////////////////////////
+    Paint paint;
+    //圆最小半径
+    private float MIN = getFitSize(560);
+    //圆最大半径
+    private float MAX = MIN + getFitSize(60);
+    //圆半径
+    private float radius = MIN;
+    private int deltaRadius = 1;
 }

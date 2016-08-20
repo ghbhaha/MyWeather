@@ -42,7 +42,6 @@ public class WindmillView extends View {
         init();
     }
 
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         height = MeasureSpec.getSize(heightMeasureSpec);

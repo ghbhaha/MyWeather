@@ -7,18 +7,6 @@ import java.util.Random;
  */
 public class Star {
 
-    protected int x; //x最大范围
-    protected int y; //y最大范围
-    protected Random random = new Random();
-
-    private int radius = 4;
-
-    private int minAlpha = 30;
-    private int maxAlpha = 140;
-
-    private int currentAlpha = minAlpha;
-    private int alphaDelta = 2;
-
     public Star(int maxX, int maxY) {
         this.x = random.nextInt(maxX);
         this.y = random.nextInt(maxY);
@@ -63,4 +51,14 @@ public class Star {
     public int getRadius() {
         return radius;
     }
+
+    /////////////////////////////////////////////////////////////////
+    protected int x; //x最大范围
+    protected int y; //y最大范围
+    protected Random random = new Random();
+    private int radius = 4;
+    private int minAlpha = 30;
+    private int maxAlpha = 140;
+    private int currentAlpha = minAlpha;
+    private int alphaDelta = 2;
 }

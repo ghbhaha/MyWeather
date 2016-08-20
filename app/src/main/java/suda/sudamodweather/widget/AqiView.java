@@ -13,11 +13,6 @@ import android.view.View;
  */
 public class AqiView extends View {
 
-    Paint paint = new Paint();
-    private float height, width;
-    private int progress = 0;
-    private String label = "";
-
     public AqiView(Context context) {
         super(context);
     }
@@ -77,5 +72,11 @@ public class AqiView extends View {
         this.label = label;
         this.invalidate();
     }
+
+    ///////////////////////////////////////////////////////////
+    Paint paint = new Paint();
+    private float height, width;
+    private int progress = 0;
+    private String label = "";
 
 }

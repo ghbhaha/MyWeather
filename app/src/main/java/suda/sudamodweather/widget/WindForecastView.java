@@ -18,18 +18,7 @@ import suda.sudamodweather.util.ScreenUtil;
  */
 public class WindForecastView extends View {
 
-    private final static String TAG = "WindForecastView";
-    /**
-     * 高度
-     */
-    private float height, width;
-    private Paint paint = new Paint();
 
-    private Context context;
-
-    private List<WeekForeCast> foreCasts = new ArrayList<>();
-
-    private float leftRight;
 
     public WindForecastView(Context context) {
         super(context);
@@ -87,4 +76,14 @@ public class WindForecastView extends View {
         return orgSize * width * 1.0f / 1080;
     }
 
+
+    private final static String TAG = "WindForecastView";
+    /**
+     * 高度
+     */
+    private float height, width;
+    private Paint paint = new Paint();
+    private Context context;
+    private List<WeekForeCast> foreCasts = new ArrayList<>();
+    private float leftRight;
 }

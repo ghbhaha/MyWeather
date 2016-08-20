@@ -14,14 +14,6 @@ import suda.sudamodweather.util.DateTimeUtil;
  */
 public class SkyView extends FrameLayout {
 
-    LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-    private String weather, oldWeather = "";
-    private String sunrise = "06:00", sunset = "18:00";
-    private Context context;
-    private BaseAnimView baseView;
-    private int backGroundColor = R.color.clear_sky_day_start;
-
-
     public SkyView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setBackgroundColor(getResources().getColor(R.color.clear_sky_day_start));
@@ -140,4 +132,13 @@ public class SkyView extends FrameLayout {
     public int getBackGroundColor() {
         return backGroundColor;
     }
+
+    /////////////////////////////////////////////////////////////
+    LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+    private String weather, oldWeather = "";
+    private String sunrise = "06:00", sunset = "18:00";
+    private Context context;
+    private BaseAnimView baseView;
+    private int backGroundColor = R.color.clear_sky_day_start;
+
 }

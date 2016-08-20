@@ -3,6 +3,7 @@ package suda.sudamodweather.manager;
 import android.content.Context;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -94,7 +95,7 @@ public class WeatherManager extends BaseManager {
                     String response = DecodeUtil.decodeResponse(HttpRetriever.retrieve(url));
                     String flymeresponse = HttpRetriever.retrieve(urlFlyme);
 
-                    //Log.d("flymeresponse", flymeresponse);
+                    Log.d("flymeresponse", urlFlyme);
 
                     if (TextUtils.isEmpty(response) || TextUtils.isEmpty(flymeresponse)) {
                         sendEmptyMessage(handler, Constant.MSG_ERROR);
