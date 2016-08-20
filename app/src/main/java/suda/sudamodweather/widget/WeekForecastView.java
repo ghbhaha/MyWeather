@@ -46,7 +46,7 @@ public class WeekForecastView extends View {
 
     private float leftRight;
 
-    private int lineType = 0;
+    private int lineType = 1;
 
     private List<PointF> mPointHs = new ArrayList<>();
     private List<PointF> mPointLs = new ArrayList<>();
@@ -128,9 +128,6 @@ public class WeekForecastView extends View {
                     pathTempHigh.lineTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTempH() - tempL) * heightAvg));
                     pathTempLow.lineTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTempL() - tempL) * heightAvg));
                 }
-            }
-
-            if (lineType == 0) {
                 paint.setStyle(Paint.Style.FILL);
                 paint.setStrokeWidth(getFitSize(2));
                 canvas.drawCircle(paddingLeft, height - (linePaddingBottom + (foreCast.getTempH() - tempL) * heightAvg), radius, paint);
