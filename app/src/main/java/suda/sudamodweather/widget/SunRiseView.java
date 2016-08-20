@@ -3,7 +3,9 @@ package suda.sudamodweather.widget;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.RectF;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -18,13 +20,6 @@ import suda.sudamodweather.util.ScreenUtil;
  * Created by ghbha on 2016/5/14.
  */
 public class SunRiseView extends View {
-
-    private int height, width;
-    private float progress = 0.0f;
-    private Paint paint = new Paint();
-    private String sunRise;
-    private String sunDown;
-    private Context context;
 
     public SunRiseView(Context context) {
         super(context);
@@ -66,9 +61,11 @@ public class SunRiseView extends View {
         canvas.translate(0, (height - radius - (center - radius)));
         //绘制太阳轨迹
         int angel = 3;
-        for (int i = 180; i < 360; i = i + angel + 4) {
-            canvas.drawArc(rect, i, angel, false, paint);
-        }
+
+        DashPathEffect dashPathEffect = new DashPathEffect(new float[]{25, 25}, 5);
+        paint.setPathEffect(dashPathEffect);
+        canvas.drawArc(rect, 0, 360, false, paint);
+        paint.setPathEffect(null);
 
         //绘制太阳
         paint.setStrokeWidth((float) 4.0);
@@ -84,13 +81,20 @@ public class SunRiseView extends View {
             pointX = center - radius * Math.sin((angel / 180f) * Math.PI);
             pointY = height - radius * Math.cos((angel / 180f) * Math.PI) - (height - radius - (center - radius));
         }
-
         canvas.drawCircle(pointX.floatValue(), pointY.floatValue(), getFitSize(30), paint);
+
+        //扫过的阴影
+        Path path = new Path();
+        path.arcTo(rect, 0, 180 + 180 * progress);
+        path.lineTo(pointX.floatValue(), pointY.floatValue() + radius);
+        paint.setAlpha(60);
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawPath(path, paint);
 
         //绘制日出日落时间
         paint.setStyle(Paint.Style.FILL);
         paint.setAlpha(255);
-        paint.setTextSize(ScreenUtil.getSp(context, 13));
+        paint.setTextSize(ScreenUtil.getSp(context, 12));
         paint.setStrokeWidth((float) 1.0);
         paint.setTextAlign(Paint.Align.CENTER);
 
@@ -146,4 +150,12 @@ public class SunRiseView extends View {
     private int getFitSize(int orgSize) {
         return orgSize * width / 1080;
     }
+
+    ////////////////////////////////////////////////
+    private int height, width;
+    private float progress = 0.0f;
+    private Paint paint = new Paint();
+    private String sunRise;
+    private String sunDown;
+    private Context context;
 }
