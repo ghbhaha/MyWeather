@@ -8,8 +8,8 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PointF;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -46,10 +46,16 @@ public class WeekForecastView extends View {
 
     private float leftRight;
 
+    private int lineType = 0;
+
+    private List<PointF> mPointHs = new ArrayList<>();
+    private List<PointF> mPointLs = new ArrayList<>();
+    private List<PointF> mMidPoints = new ArrayList<>();
+    private List<PointF> mMidMidPoints = new ArrayList<>();
+    private List<PointF> mControlPoints = new ArrayList<>();
 
     public WeekForecastView(Context context) {
         super(context);
-
         this.context = context;
     }
 
@@ -107,23 +113,34 @@ public class WeekForecastView extends View {
         Path pathTempHigh = new Path();
         Path pathTempLow = new Path();
 
+        mPointHs.clear();
+        mPointLs.clear();
+
         float paddingLeft = 0;
         int i = 1;
         for (WeekForeCast foreCast : foreCasts) {
             paddingLeft = leftRight / 2 + (i - 1 + 0.5f) * widthAvg;
-
-            if (i == 1) {
-                pathTempHigh.moveTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTempH() - tempL) * heightAvg));
-                pathTempLow.moveTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTempL() - tempL) * heightAvg));
-            } else {
-                pathTempHigh.lineTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTempH() - tempL) * heightAvg));
-                pathTempLow.lineTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTempL() - tempL) * heightAvg));
+            if (lineType == 0) {
+                if (i == 1) {
+                    pathTempHigh.moveTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTempH() - tempL) * heightAvg));
+                    pathTempLow.moveTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTempL() - tempL) * heightAvg));
+                } else {
+                    pathTempHigh.lineTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTempH() - tempL) * heightAvg));
+                    pathTempLow.lineTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTempL() - tempL) * heightAvg));
+                }
             }
 
-            paint.setStyle(Paint.Style.FILL);
-            paint.setStrokeWidth(getFitSize(2));
-            canvas.drawCircle(paddingLeft, height - (linePaddingBottom + (foreCast.getTempH() - tempL) * heightAvg), radius, paint);
-            canvas.drawCircle(paddingLeft, height - (linePaddingBottom + (foreCast.getTempL() - tempL) * heightAvg), radius, paint);
+            if (lineType == 0) {
+                paint.setStyle(Paint.Style.FILL);
+                paint.setStrokeWidth(getFitSize(2));
+                canvas.drawCircle(paddingLeft, height - (linePaddingBottom + (foreCast.getTempH() - tempL) * heightAvg), radius, paint);
+                canvas.drawCircle(paddingLeft, height - (linePaddingBottom + (foreCast.getTempL() - tempL) * heightAvg), radius, paint);
+            } else {
+                PointF pointFH = new PointF(paddingLeft, height - (linePaddingBottom + (foreCast.getTempH() - tempL) * heightAvg));
+                mPointHs.add(pointFH);
+                PointF pointFL = new PointF(paddingLeft, height - (linePaddingBottom + (foreCast.getTempL() - tempL) * heightAvg));
+                mPointLs.add(pointFL);
+            }
 
             paint.setStrokeWidth(0);
             paint.setStyle(Paint.Style.STROKE);
@@ -147,8 +164,21 @@ public class WeekForecastView extends View {
         }
         paint.setStrokeWidth(getFitSize(3));
         paint.setStyle(Paint.Style.STROKE);
-        canvas.drawPath(pathTempHigh, paint);
-        canvas.drawPath(pathTempLow, paint);
+
+        if (lineType == 0) {
+            canvas.drawPath(pathTempHigh, paint);
+            canvas.drawPath(pathTempLow, paint);
+        } else {
+            resetMidPoints(this.mPointHs);
+            resetMidMidPoints();
+            resetControlPoints(this.mPointHs);
+            drawBezier(canvas, pathTempHigh, mPointHs);
+
+            resetMidPoints(this.mPointLs);
+            resetMidMidPoints();
+            resetControlPoints(this.mPointLs);
+            drawBezier(canvas, pathTempLow, mPointLs);
+        }
     }
 
 
@@ -175,6 +205,68 @@ public class WeekForecastView extends View {
         this.foreCasts.addAll(foreCasts);
         maxMinDelta = getMaxMinDelta();
         this.invalidate();
+    }
+
+    /**
+     * 画贝塞尔曲线
+     */
+    private void drawBezier(Canvas canvas, Path path, List<PointF> points) {
+        path.reset();
+        for (int i = 0; i < points.size(); i++) {
+            if (i == 0) {// 第一条为二阶贝塞尔
+                path.moveTo(points.get(i).x, points.get(i).y);// 起点
+                path.quadTo(mControlPoints.get(i).x, mControlPoints.get(i).y,// 控制点
+                        points.get(i + 1).x, points.get(i + 1).y);
+            } else if (i < points.size() - 2) {// 三阶贝塞尔
+                path.cubicTo(mControlPoints.get(2 * i - 1).x, mControlPoints.get(2 * i - 1).y,// 控制点
+                        mControlPoints.get(2 * i).x, mControlPoints.get(2 * i).y,// 控制点
+                        points.get(i + 1).x, points.get(i + 1).y);// 终点
+            } else if (i == points.size() - 2) {// 最后一条为二阶贝塞尔
+                path.moveTo(points.get(i).x, points.get(i).y);// 起点
+                path.quadTo(mControlPoints.get(mControlPoints.size() - 1).x, mControlPoints.get(mControlPoints.size() - 1).y,
+                        points.get(i + 1).x, points.get(i + 1).y);// 终点
+            }
+        }
+        canvas.drawPath(path, paint);
+    }
+
+    /**
+     * 初始化中点集合
+     */
+    private void resetMidPoints(List<PointF> points) {
+        mMidPoints.clear();
+        for (int i = 0; i < points.size() - 1; i++) {
+            PointF midPoint = new PointF((points.get(i).x + points.get(i + 1).x) / 2, (points.get(i).y + points.get(i + 1).y) / 2);
+            mMidPoints.add(midPoint);
+        }
+    }
+
+    /**
+     * 初始化中点的中点集合
+     */
+    private void resetMidMidPoints() {
+        mMidMidPoints.clear();
+        for (int i = 0; i < mMidPoints.size() - 1; i++) {
+            PointF midMidPoint = new PointF((mMidPoints.get(i).x + mMidPoints.get(i + 1).x) / 2, (mMidPoints.get(i).y + mMidPoints.get(i + 1).y) / 2);
+            mMidMidPoints.add(midMidPoint);
+        }
+    }
+
+    /**
+     * 初始化控制点集合
+     */
+    private void resetControlPoints(List<PointF> points) {
+        mControlPoints.clear();
+        for (int i = 1; i < points.size() - 1; i++) {
+            PointF before = new PointF();
+            PointF after = new PointF();
+            before.x = mMidPoints.get(i - 1).x;
+            before.y = mMidPoints.get(i - 1).y + points.get(i).y - mMidMidPoints.get(i - 1).y;
+            after.x = mMidPoints.get(i).x;
+            after.y = mMidPoints.get(i).y + points.get(i).y - mMidMidPoints.get(i - 1).y;
+            mControlPoints.add(before);
+            mControlPoints.add(after);
+        }
     }
 
     private float getFitSize(float orgSize) {
