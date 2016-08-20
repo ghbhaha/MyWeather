@@ -64,7 +64,7 @@ public class SunRiseView extends View {
 
         DashPathEffect dashPathEffect = new DashPathEffect(new float[]{25, 25}, 5);
         paint.setPathEffect(dashPathEffect);
-        canvas.drawArc(rect, 0, 360, false, paint);
+        canvas.drawArc(rect, 180, 180, false, paint);
         paint.setPathEffect(null);
 
         //绘制太阳
@@ -83,9 +83,10 @@ public class SunRiseView extends View {
         }
         canvas.drawCircle(pointX.floatValue(), pointY.floatValue(), getFitSize(30), paint);
 
+
         //扫过的阴影
         Path path = new Path();
-        path.arcTo(rect, 0, 180 + 180 * progress);
+        path.arcTo(rect, 180, 180 * progress);
         path.lineTo(pointX.floatValue(), pointY.floatValue() + radius);
         paint.setAlpha(60);
         paint.setStyle(Paint.Style.FILL);
