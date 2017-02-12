@@ -2,6 +2,7 @@ package suda.sudamodweather.widget.weather;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
@@ -53,6 +54,15 @@ public class SkyView extends FrameLayout {
             return;
         }
         oldWeather = weather;
+
+        if (getChildCount() > 0) {
+            for (int i = 0; i < getChildCount(); i++) {
+                View childView = getChildAt(i);
+                if (childView instanceof BaseAnimView) {
+                    ((BaseAnimView) childView).callStop();
+                }
+            }
+        }
 
         this.removeAllViews();
         if (baseView != null) {

@@ -54,15 +54,12 @@ public abstract class BaseAnimView extends SurfaceView implements SurfaceHolder.
     }
 
     protected void startAnim() {
-        if (thread != null) {
-            thread = null;
-        }
-        thread = new Thread(this);
-        thread.start();
+        isRunning = true;
+        new Thread(this).start();
     }
 
     protected void doLogic() {
-        while (true) {
+        while (isRunning) {
             Canvas canvas = null;
             synchronized (this) {
                 try {
@@ -81,6 +78,10 @@ public abstract class BaseAnimView extends SurfaceView implements SurfaceHolder.
         }
     }
 
+    public void callStop() {
+        isRunning = false;
+    }
+
     //////////////////////////////////////////////
     protected Thread thread;
     protected int backColor = 0;
@@ -88,4 +89,5 @@ public abstract class BaseAnimView extends SurfaceView implements SurfaceHolder.
     protected int windowHeight; //屏幕高
     protected int sleepTime = 30;
     protected SurfaceHolder holder;
+    private boolean isRunning;
 }
