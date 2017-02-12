@@ -59,7 +59,7 @@ public class WeekForecastView extends View {
         paint.setAntiAlias(true);
         paint.setStrokeWidth(0);
         paint.setTextAlign(Paint.Align.CENTER);
-        paint.setTextSize(ScreenUtil.getSp(context, 12));
+        paint.setTextSize(ScreenUtil.getSp(context, 13));
 
         drawWeatherDetail(canvas);
 
@@ -90,7 +90,7 @@ public class WeekForecastView extends View {
         List<PointF> mPointLs = new ArrayList<>();
         for (WeekForeCast foreCast : foreCasts) {
             paddingLeft = leftRight / 2 + (i - 1 + 0.5f) * widthAvg;
-            if (lineType == 0) {
+            if (type == TYPE_LINE) {
                 if (i == 1) {
                     pathTempHigh.moveTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTempH() - tempL) * heightAvg));
                     pathTempLow.moveTo(paddingLeft, height - (linePaddingBottom + (foreCast.getTempL() - tempL) * heightAvg));
@@ -132,7 +132,7 @@ public class WeekForecastView extends View {
         paint.setStrokeWidth(getFitSize(3));
         paint.setStyle(Paint.Style.STROKE);
 
-        if (lineType == 0) {
+        if (type == TYPE_LINE) {
             canvas.drawPath(pathTempHigh, paint);
             canvas.drawPath(pathTempLow, paint);
         } else {
@@ -160,12 +160,36 @@ public class WeekForecastView extends View {
     }
 
 
+    private int getMaxMinDelta() {
+        if (foreCasts.size() > 0) {
+            tempH = foreCasts.get(0).getTempH();
+            tempL = foreCasts.get(0).getTempL();
+            for (WeekForeCast weekForeCast : foreCasts) {
+                if (weekForeCast.getTempH() > tempH) {
+                    tempH = weekForeCast.getTempH();
+                }
+                if (weekForeCast.getTempL() < tempL) {
+                    tempL = weekForeCast.getTempL();
+                }
+            }
+            return tempH - tempL;
+        }
+        return 0;
+    }
+
+
+    public void setForeCasts(List<WeekForeCast> foreCasts) {
+        this.foreCasts.clear();
+        this.foreCasts.addAll(foreCasts);
+        maxMinDelta = getMaxMinDelta();
+        this.invalidate();
+    }
+
     private float getFitSize(float orgSize) {
         return orgSize * width * 1.0f / 1080;
     }
 
 
-    ////////////////////////////////////////////////////////////
     private final static String TAG = "ForeCastView";
     private float height, width;
     private Paint paint = new Paint();
@@ -175,5 +199,8 @@ public class WeekForecastView extends View {
     private int tempH, tempL;
     private float radius = 0;
     private float leftRight;
-    private int lineType = 1;
+
+    private static final int TYPE_LINE = 0;
+    private static final int TYPE_BESSEL = 1;
+    private int type = TYPE_BESSEL;
 }
